@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+}
+
+#root {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#root-app {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+#app-left-panel {
+    flex-basis: 20%;
+}
+
+#app-content {
+    flex-basis: 100%;
+    padding: 5px;
+}
