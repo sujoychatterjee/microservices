@@ -10,16 +10,15 @@ RootAppController.$inject = ['contentManager'];
 
 export const RootApp = {
     controller: RootAppController,
-    controllerAs: 'abc',
     template: `<div id="root-app">
         <div id="app-left-panel">
             <left-panel />
         </div>
         <div id="app-content">
             <div>
-                <links-component content="abc.contentManager.content" />
+                <links-component content="$ctrl.contentManager.content" />
             </div>
-            <div>
+            <div id="app-content-container">
                 <ui-view></ui-view>
             </div>
         </div>

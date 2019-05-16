@@ -40,6 +40,11 @@ export class ContentMananger {
     deregisterContent(type) {
         this.content = this.content.filter(contentData => contentData.type !== type);
     }
+
+    getManager(type) {
+        const typeContentData = this.content.find((contentData) => contentData.name === type) || {};
+        return typeContentData.manager;
+    }
 }
 
 ContentMananger.$inject = [];

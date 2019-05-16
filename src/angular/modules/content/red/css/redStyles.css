@@ -1,0 +1,10 @@
+#red-content {
+    background: #ff4444;
+    height: 100%;
+    width: 100%;
+}
+
+#red-content h3 {
+    margin: 0;
+    padding: 10px;
+}

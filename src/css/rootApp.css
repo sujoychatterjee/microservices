@@ -24,4 +24,15 @@ body {
 #app-content {
     flex-basis: 100%;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#app-content-container {
+    flex-basis: 100%;
+}
+#app-content-container ui-view {
+    display: block;
+    height: 100%;
+    width: 100%;
 }

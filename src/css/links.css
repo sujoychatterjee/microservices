@@ -1,0 +1,14 @@
+#app-links {
+    padding: 10px;
+    background: #80808061;
+    border-radius: 5px;
+}
+
+#app-links .app-link {
+    color: grey;
+    text-decoration: none;
+}
+
+#app-links .app-link.active {
+    color: black;
+}

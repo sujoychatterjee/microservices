@@ -1,0 +1,10 @@
+#green-content {
+    background: greenyellow;
+    height: 100%;
+    width: 100%;
+}
+
+#green-content h3 {
+    margin: 0;
+    padding: 10px;
+}
