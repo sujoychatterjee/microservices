@@ -4,6 +4,7 @@ import '../modules/basicModule';
 import '../modules/content';
 import { RootApp } from '../components/rootApp';
 import { ContentMananger } from '../services/contentManager';
+import { TriggerHandlerService } from '../services/triggerHanderService';
 
 let $stateProviderSaved;
 
@@ -19,3 +20,4 @@ app.run(['contentManager', (contentMananger) => {
 
 app.component('rootApp', RootApp);
 app.service('contentManager', ContentMananger);
+app.service('triggerHandler', TriggerHandlerService);
