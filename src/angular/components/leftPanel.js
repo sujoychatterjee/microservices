@@ -1,4 +1,4 @@
-// import style from '../../css/rootApp.css';
+import style from '../../css/leftPanel.css';
 
 class LeftPanelController {
     constructor(contentManager, $scope) {
@@ -106,7 +106,13 @@ class LeftPanelController {
     }
 
     openItem(data) {
-        this.contentManager.sendTrigger(data.type, {action: 'open_new_tab', payload: {viewId: data.id}});
+        this.contentManager.sendTrigger(data.type, { 
+            action: 'open_new_tab',
+            payload: {
+                params: { viewId: data.id },
+                details: { title: data.name },
+            }
+        });
     }
 
 
@@ -122,7 +128,7 @@ export const leftPanel = {
             Content Library
         </div>
         <div class="left-panel-content">
-            <div ng-repeat="data in $ctrl.data" ng-style="$ctrl.getStyle(data.type)" ng-click="$ctrl.openItem(data)">
+            <div ng-repeat="data in $ctrl.data" ng-style="$ctrl.getStyle(data.type)" ng-click="$ctrl.openItem(data)" class="left-panel-item">
                 {{data.name}}
             <div/>
         </div>

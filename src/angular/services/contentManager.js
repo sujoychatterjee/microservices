@@ -1,10 +1,12 @@
 import reducerRegistry from '../../store/reducers/reducerRegistery';
+import { store } from '../../store/stateStore';
 export class ContentMananger {
     
-    constructor(triggerHandler) {
+    constructor(triggerHandler, $transitions) {
         this.content = [];
         this.delayQueue = [];
         this.triggerHandler = triggerHandler;
+        this.$transitions = $transitions;
     }
 
     initialize($stateProvider) {
@@ -22,6 +24,8 @@ export class ContentMananger {
             name: contentData.routeName,
             url: contentData.url,
             template: contentData.template,
+            controller: contentData.controller,
+            params: contentData.params,
           };
         const storeDefs = contentData.store;
         const outbound$ = contentData.triggerHelpers ? contentData.triggerHelpers.outbound : undefined;
@@ -50,6 +54,15 @@ export class ContentMananger {
 
     registerState(stateDefinition) {
         this.$stateProvider.state(stateDefinition);
+        this.$transitions.onBefore({ to: '**' }, (trans) => {
+            let params = trans.params();
+            let newTrans = true;
+            if (params.store === null) {
+                params = { ...params, store };
+                newTrans = trans.router.stateService.target(trans.to(), params);
+            }
+            return newTrans;
+        });
     }
 
     registerTrigger(outbound$) {
@@ -79,4 +92,4 @@ export class ContentMananger {
     }
 }
 
-ContentMananger.$inject = ['triggerHandler'];
+ContentMananger.$inject = ['triggerHandler', '$transitions'];

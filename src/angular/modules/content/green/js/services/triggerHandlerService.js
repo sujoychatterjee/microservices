@@ -31,17 +31,26 @@ export class TriggerHandlerService {
     }
 
     getRouteParams() {
+        const viewId = Math.ceil(Math.random() * 100000);
         return {
-            viewId: Math.ceil(Math.random()* 100000)
+            viewId,
         }
     }
 
-    openNewTab(payload) {
+    getViewDetails({ viewId }) {
+        return {
+            title: `Green ${viewId}`,
+        }
+    }
+
+    openNewTab({params = this.getRouteParams(), details = this.getViewDetails(params)} = {}) {
+        
         this.sendTrigger({
             action: 'go_to_route',
             payload: {
                 stateName: this.routeName,
-                params: payload || this.getRouteParams(),
+                params: params,
+                details,
             },
         });
     }

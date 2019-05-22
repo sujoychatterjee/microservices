@@ -19,7 +19,12 @@ export const RootApp = {
                 <links-component content="$ctrl.contentManager.content" />
             </div>
             <div id="app-content-container">
-                <ui-view></ui-view>
+                <div>
+                    <tabs-component />
+                </div>
+                <div id="app-content">
+                    <ui-view></ui-view>
+                </div>
             </div>
         </div>
     </div>`,

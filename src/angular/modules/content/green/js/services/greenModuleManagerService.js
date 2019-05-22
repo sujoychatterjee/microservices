@@ -1,5 +1,21 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
 
+class GreenModuleController {
+
+    constructor($state) {
+        this.$state = $state;
+        this.store = this.$state.params.store;
+        this.viewId = this.$state.params.viewId;
+        this.store.dispatch({
+            type: 'add_tab',
+            payload: {id: this.viewId, details: { title: 'Green tab'}, params: { viewId: this.viewId } },
+        });
+    }
+
+}
+
+GreenModuleController.$inject = ['$state'];
+
 export class GreenModuleManagerService extends TriggerHandlerService {
 
     constructor() {
@@ -15,8 +31,12 @@ export class GreenModuleManagerService extends TriggerHandlerService {
             name: this.name,
             routeName: this.routeName,
             url: '/green/{viewId:.*}',
-            hint: this.hint,
             template: this.getTemplate,
+            controller: GreenModuleController,
+            params: {
+                store: null,
+            },
+            hint: this.hint,
             color: this.color,
             store: [{
                 name: 'green',

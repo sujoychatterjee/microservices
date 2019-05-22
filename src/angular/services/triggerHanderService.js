@@ -1,3 +1,5 @@
+import { store } from '../../store/stateStore';
+
 export class TriggerHandlerService {
     constructor($state) {
         this.$state = $state;
@@ -11,8 +13,8 @@ export class TriggerHandlerService {
         }
     }
 
-    goToRoute(route) {
-        return this.$state.go(route.stateName, route.params, { inherit: false });
+    goToRoute({stateName, params, details}) {
+        return this.$state.go(stateName, params, { inherit: false });
     }
 }
 TriggerHandlerService.$inject = ['$state'];

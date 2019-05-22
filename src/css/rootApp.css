@@ -30,6 +30,8 @@ body {
 
 #app-content-container {
     flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
 }
 #app-content-container ui-view {
     display: block;
