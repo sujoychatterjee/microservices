@@ -1,0 +1,19 @@
+.tabs-container {
+    margin: 5px;
+    height: 40px;
+    background: #e0e0e0;
+    display: flex;
+}
+
+.tabs-container .tab {
+    background: #c1c0c0;
+    border-bottom: 5px solid;
+    border-left: 1px solid #615e5e;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.tabs-container .tab.active {
+    border-bottom: 2px solid;
+}

@@ -1,4 +1,5 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
+import { setStore } from '../utils/connectWrapper';
 
 class GreenModuleController {
 
@@ -8,8 +9,14 @@ class GreenModuleController {
         this.viewId = this.$state.params.viewId;
         this.store.dispatch({
             type: 'add_tab',
-            payload: {id: this.viewId, details: { title: 'Green tab'}, params: { viewId: this.viewId } },
+            payload: {id: this.viewId, details: { title: 'Green tab', name: 'green'}, params: { viewId: this.viewId } },
         });
+
+        this.setupStoreProviders(this.store);
+    }
+
+    setupStoreProviders(store) {
+        setStore(store);
     }
 
 }
@@ -62,11 +69,5 @@ export class GreenModuleManagerService extends TriggerHandlerService {
 
     getTemplate() {
         return '<div id="green-content"><h3>This is Green content</h3></div>';
-    }
-
-    openNewInstance(details) {
-        if (!details) {
-
-        }
     }
 }

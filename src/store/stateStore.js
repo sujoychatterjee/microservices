@@ -1,5 +1,7 @@
-import { createStore } from 'redux';
-import { Subject, Observable } from 'rxjs';
+import { createStore, applyMiddleware } from 'redux';
+import { createEpicMiddleware } from 'redux-observable';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { rootEpic } from './epics/epicRegistery';
 
 export const triggerReducerChange$ = new Subject();
 
@@ -10,7 +12,10 @@ triggerReducerChange$.subscribe((reducers) => {
     if (store) {
         store.replaceReducer(reducers);
     } else {
-        store = createStore(reducers);
-        store$ = Observable.create((observer) => store.subscribe(() => observer.next(store.getState())));
+        const epicMiddleware = createEpicMiddleware();
+        store = createStore(reducers, applyMiddleware(epicMiddleware));
+        epicMiddleware.run(rootEpic);
+        store$ = new BehaviorSubject();
+        store.subscribe(() => store$.next(store.getState()));
     }
 });

@@ -1,4 +1,9 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
+import { setStore } from '../utils/connectWrapper';
+import { toJson } from "@uirouter/core";
+import { mapTo, delay } from "rxjs/operators";
+import { ofType } from 'redux-observable'; 
+
 
 class BlueModuleController {
     constructor($state) {
@@ -7,14 +12,17 @@ class BlueModuleController {
         this.viewId = this.$state.params.viewId;
         this.store.dispatch({
             type: 'add_tab',
-            payload: { details: { title: 'Blue tab'}, params: { viewId: this.viewId } },
+            payload: { details: { title: 'Blue tab', name: 'blue'}, params: { viewId: this.viewId } },
         });
+
+        console.log(Object.keys(setStore));
+        setStore(this.store);
     }
 }
 
 BlueModuleController.$inject = ['$state'];
 
-export class BlueModuleManagerService extends TriggerHandlerService{
+class BlueModuleManagerService extends TriggerHandlerService{
 
     constructor() {
         super();
@@ -39,18 +47,18 @@ export class BlueModuleManagerService extends TriggerHandlerService{
             store: [{
                 name: 'blue',
                 initialState: {
-                    ABC: 1,
-                    DEF: 2,
+                    count: 100,
                 },
                 reducers: {
-                    ABC: (state, action) => {
-                        return {...state, ABC: action.value};
+                    increment_blue_count: (state, action) => {
+                        return {...state, count: state.count + 1};
                     },
-                    DEF: (state, action) => {
-                        return {...state, DEF: action.value};
+                    decrement_blue_count: (state, action) => {
+                        return {...state, count: state.count - 1};
                     },
                 }
             }],
+            epics: this.getEpics(),
             triggerHelpers: {
                 inbound: this.inbound$,
                 outbound: this.outbound$.asObservable(),
@@ -58,7 +66,27 @@ export class BlueModuleManagerService extends TriggerHandlerService{
         };
     }
 
+    getEpics() {
+        return [
+            (action$) =>
+                action$.pipe(
+                    ofType('delayed_increment_blue_count'),
+                    delay(2000),
+                    mapTo({ type: 'increment_blue_count' }),
+                ),
+            (action$) =>
+                action$.pipe(
+                    ofType('delayed_decrement_blue_count'),
+                    delay(2000),
+                    mapTo({ type: 'decrement_blue_count' }),
+                )
+
+        ]
+    }
+
     getTemplate() {
         return '<blue-container />';
     }
 }
+
+export const blueModuleManagerService =  new BlueModuleManagerService();

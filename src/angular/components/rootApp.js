@@ -17,6 +17,10 @@ export const RootApp = {
         <div id="app-content">
             <div>
                 <links-component content="$ctrl.contentManager.content" />
+                <store-counter />
+            </div>
+            <div>
+                <store-counter />
             </div>
             <div id="app-content-container">
                 <div>

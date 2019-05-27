@@ -1,5 +1,7 @@
 import reducerRegistry from '../../store/reducers/reducerRegistery';
 import { store } from '../../store/stateStore';
+import { epic$ } from '../../store/epics/epicRegistery';
+import { combineEpics } from 'redux-observable';
 export class ContentMananger {
     
     constructor(triggerHandler, $transitions) {
@@ -28,20 +30,24 @@ export class ContentMananger {
             params: contentData.params,
           };
         const storeDefs = contentData.store;
+        const epicDefs = contentData.epics;
         const outbound$ = contentData.triggerHelpers ? contentData.triggerHelpers.outbound : undefined;
         if (this.$stateProvider) {
         const storeDef = contentData.store;
-            this.register({stateDefinition, storeDefs, outbound$});
+            this.register({stateDefinition, storeDefs, epicDefs, outbound$});
         } else {
-            this.delayQueue = [...this.delayQueue, {stateDefinition, storeDefs, outbound$}]
+            this.delayQueue = [...this.delayQueue, {stateDefinition, storeDefs, epicDefs, outbound$}]
         }
     }
 
-    register({stateDefinition, storeDefs, outbound$}) {
+    register({stateDefinition, storeDefs, epicDefs, outbound$}) {
         this.registerState(stateDefinition);
         this.registerTrigger(outbound$);
         if (storeDefs) {
             this.registerReducers(storeDefs);
+        }
+        if (epicDefs) {
+            this.registerEpics(epicDefs);
         }
     }
 
@@ -50,6 +56,10 @@ export class ContentMananger {
             const {name, initialState, reducers} = storeDef;
             reducerRegistry.register(name, initialState, reducers);
         });
+    }
+
+    registerEpics(epicDefs) {
+        epic$.next(combineEpics(...epicDefs));
     }
 
     registerState(stateDefinition) {

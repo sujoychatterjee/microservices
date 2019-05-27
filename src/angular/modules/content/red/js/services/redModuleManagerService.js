@@ -7,7 +7,7 @@ class RedModuleController {
         this.viewId = this.$state.params.viewId;
         this.store.dispatch({
             type: 'add_tab',
-            payload: {id: this.viewId, details: { title: 'Red tab'}, params: { viewId: this.viewId } },
+            payload: {id: this.viewId, details: { title: 'Red tab', name: 'red'}, params: { viewId: this.viewId } },
         });
     }
 }

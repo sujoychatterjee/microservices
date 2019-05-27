@@ -2,6 +2,7 @@
     padding: 10px;
     background: #80808061;
     border-radius: 5px;
+    display: inline-block;
 }
 
 #app-links .app-link {
