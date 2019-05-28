@@ -1,5 +1,7 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
 import { setStore } from '../utils/connectWrapper';
+import { ofType } from 'redux-observable';
+import { mapTo, delay } from 'rxjs/operators';
 
 class GreenModuleController {
 
@@ -23,7 +25,7 @@ class GreenModuleController {
 
 GreenModuleController.$inject = ['$state'];
 
-export class GreenModuleManagerService extends TriggerHandlerService {
+class GreenModuleManagerService extends TriggerHandlerService {
 
     constructor() {
         super();
@@ -38,8 +40,9 @@ export class GreenModuleManagerService extends TriggerHandlerService {
             name: this.name,
             routeName: this.routeName,
             url: '/green/{viewId:.*}',
-            template: this.getTemplate,
+            template: '<green-container view-id="vm.viewId" />',
             controller: GreenModuleController,
+            controllerAs: 'vm',
             params: {
                 store: null,
             },
@@ -48,18 +51,18 @@ export class GreenModuleManagerService extends TriggerHandlerService {
             store: [{
                 name: 'green',
                 initialState: {
-                    ABC: 1,
-                    DEF: 2,
+                    count: 50,
                 },
                 reducers: {
-                    ABC: (state, action) => {
-                        return {...state, ABC: action.value};
+                    increment_green_count: (state, action) => {
+                        return {...state, count: state.count + 1};
                     },
-                    DEF: (state, action) => {
-                        return {...state, DEF: action.value};
+                    decrement_green_count: (state, action) => {
+                        return {...state, count: state.count - 1};
                     },
                 }
             }],
+            epics: this.getEpics(),
             triggerHelpers: {
                 inbound: this.inbound$,
                 outbound: this.outbound$.asObservable(),
@@ -67,7 +70,23 @@ export class GreenModuleManagerService extends TriggerHandlerService {
         }
     }
 
-    getTemplate() {
-        return '<div id="green-content"><h3>This is Green content</h3></div>';
+    getEpics() {
+        return [
+            (action$) =>
+                action$.pipe(
+                    ofType('delayed_increment_green_count'),
+                    delay(2000),
+                    mapTo({ type: 'increment_green_count' }),
+                ),
+            (action$) =>
+                action$.pipe(
+                    ofType('delayed_decrement_green_count'),
+                    delay(2000),
+                    mapTo({ type: 'decrement_green_count' }),
+                )
+
+        ]
     }
 }
+
+export const greenModuleManagerService = new GreenModuleManagerService();

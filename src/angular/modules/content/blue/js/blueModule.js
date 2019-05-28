@@ -1,4 +1,3 @@
-import * as angular from 'angular';
 import { react2angular } from 'react2angular';
 import styles from '../css/blueStyles.css';
 import { blueModuleManagerService } from './services/blueModuleManagerService';

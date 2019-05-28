@@ -8,11 +8,12 @@ import { TriggerHandlerService } from '../services/triggerHanderService';
 
 // -----------------------
 import { blueModule, rootComponent as blueRootComponent } from '../modules/content/blue/js/blueModule';
+import { greenModule, rootComponent as greenRootComponent } from '../modules/content/green/js/greenModule';
 // -----------------------
 
 let $stateProviderSaved;
 
-const app = angular.module('app', ['ui.router', 'app.basic', 'app.red', 'app.green', 'app.yellow']);
+const app = angular.module('app', ['ui.router', 'app.basic', 'app.red', 'app.yellow']);
 
 app.config(['$stateProvider', ($stateProvider) => {
     $stateProviderSaved = $stateProvider;
@@ -23,6 +24,7 @@ app.run(['contentManager', (contentMananger) => {
 
     // -----------------------
     blueModule.init(contentMananger);
+    greenModule.init(contentMananger);
     // -----------------------
 }]);
 
@@ -32,4 +34,5 @@ app.service('triggerHandler', TriggerHandlerService);
 
 // -----------------------
 app.component(blueRootComponent.name, blueRootComponent.component);
+app.component(greenRootComponent.name, greenRootComponent.component);
 // -----------------------
