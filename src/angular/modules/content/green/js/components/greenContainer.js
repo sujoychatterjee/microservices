@@ -2,15 +2,15 @@ import React from 'react';
 import { Frame } from '../../../../../../react/components/frame';
 import { StoreCounter } from './storeCounter';
 
-export class BlueContainer extends React.Component {
+export class GreenContainer extends React.Component {
     render() {
-        // return <div id="blue-content">
-        //     <h2>This is Blue content (ID: {this.props.viewId})</h2>
+        // return <div id="green-content">
+        //     <h3>This is Green content (ID: {this.props.viewId})</h3>
         //     <StoreCounter />
         // </div>;
         return <Frame>
-            <div id="blue-content">
-                <h3>This is Blue content (ID: {this.props.viewId})</h3>
+            <div id="green-content">
+                <h3>This is Green content (ID: {this.props.viewId})</h3>
                 <StoreCounter />
             </div>
         </Frame>;
