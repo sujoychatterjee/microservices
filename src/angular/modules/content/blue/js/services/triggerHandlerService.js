@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { routeDetails } from "../initializers/route";
+import { routeDetails } from "../route";
 
 export class TriggerHandlerService {
 
