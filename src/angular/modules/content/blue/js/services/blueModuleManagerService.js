@@ -1,47 +1,24 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
-import { setStore } from '../utils/connectWrapper';
 import { toJson } from "@uirouter/core";
 import { mapTo, delay } from "rxjs/operators";
 import { ofType } from 'redux-observable'; 
+import { routeDetails } from "../initializers/route";
 
-
-class BlueModuleController {
-    constructor($state) {
-        this.$state = $state;
-        this.store = this.$state.params.store;
-        this.viewId = this.$state.params.viewId;
-        this.store.dispatch({
-            type: 'add_tab',
-            payload: { details: { title: 'Blue tab', name: 'blue'}, params: { viewId: this.viewId } },
-        });
-
-        console.log(Object.keys(setStore));
-        setStore(this.store);
-    }
-}
-
-BlueModuleController.$inject = ['$state'];
-
-class BlueModuleManagerService extends TriggerHandlerService{
+class BlueModuleManagerService {
 
     constructor() {
-        super();
+        const { inbound$, outbound$ } = new TriggerHandlerService();
+        this.inbound$ = inbound$;
+        this.outbound$ = outbound$;
         this.name = 'blue';
-        this.routeName = 'app_blue'
         this.hint = 'Blue';
         this.color = '#69b4f1';
     }
 
     getRegisterObject() {
         return {
+            ...routeDetails,
             name: this.name,
-            routeName: this.routeName,
-            url: '/blue/{viewId:.*}',
-            template: this.getTemplate,
-            controller: BlueModuleController,
-            params: {
-                store: null,
-            },
             hint: this.hint,
             color: this.color,
             store: [{
@@ -82,10 +59,6 @@ class BlueModuleManagerService extends TriggerHandlerService{
                 )
 
         ]
-    }
-
-    getTemplate() {
-        return '<blue-container />';
     }
 }
 

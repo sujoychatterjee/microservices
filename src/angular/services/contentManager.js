@@ -27,6 +27,7 @@ export class ContentMananger {
             url: contentData.url,
             template: contentData.template,
             controller: contentData.controller,
+            controllerAs: contentData.controllerAs,
             params: contentData.params,
           };
         const storeDefs = contentData.store;

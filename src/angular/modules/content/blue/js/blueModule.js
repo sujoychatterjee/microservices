@@ -14,6 +14,7 @@ export const blueModule = new BlueModule();
 export const rootComponent = {
   name: 'blueContainer',
   component: react2angular(
-    BlueContainer
+    BlueContainer,
+    ['viewId']
   ),
 };

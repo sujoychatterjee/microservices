@@ -4,8 +4,8 @@ import { connect } from '../utils/connectWrapper';
 class StoreCounterComponent extends React.Component {
     render() {
         return <>
-        <h1>Store Count: {this.props.count}</h1> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button>
-        <h1>Blue Internal Count: {this.props.blue.count}</h1>  <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
+        <h3>Store Count: {this.props.count}</h3> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button>
+        <h3>Blue Internal Count: {this.props.blue.count}</h3>  <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
         </>;
     }
 

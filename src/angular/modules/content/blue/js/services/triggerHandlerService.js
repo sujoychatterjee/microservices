@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs';
+import { routeDetails } from "../initializers/route";
 
 export class TriggerHandlerService {
 
@@ -48,7 +49,7 @@ export class TriggerHandlerService {
         this.sendTrigger({
             action: 'go_to_route',
             payload: {
-                stateName: this.routeName,
+                stateName: routeDetails.routeName,
                 params: params,
                 details,
             },

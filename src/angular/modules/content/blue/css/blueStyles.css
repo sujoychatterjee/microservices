@@ -1,4 +1,5 @@
 #blue-content {
+    overflow: hidden;
     background: #69b4f1;
     height: 100%;
     width: 100%;
