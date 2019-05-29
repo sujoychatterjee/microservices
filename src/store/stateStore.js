@@ -15,7 +15,7 @@ triggerReducerChange$.subscribe((reducers) => {
         const epicMiddleware = createEpicMiddleware();
         store = createStore(reducers, applyMiddleware(epicMiddleware));
         epicMiddleware.run(rootEpic);
-        store$ = new BehaviorSubject();
+        store$ = new BehaviorSubject(store.getState());
         store.subscribe(() => store$.next(store.getState()));
     }
 });

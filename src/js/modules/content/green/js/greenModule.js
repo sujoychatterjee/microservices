@@ -14,6 +14,6 @@ export const rootComponent = {
   name: 'greenContainer',
   component: react2angular(
     GreenContainer,
-    ['viewId']
+    ['viewId', 'services'],
   ),
 };

@@ -12,7 +12,8 @@ reducerRegistery.register('count', 0, {
 });
 
 class StoreCounterController {
-    constructor($scope) {
+    constructor($scope, experimentalService) {
+        this.experimentalService = experimentalService;
         store$.pipe(pluck('count')).subscribe((count) => {
             this.storeCount = count;
             $scope.$applyAsync();
@@ -32,10 +33,12 @@ class StoreCounterController {
     }
 }
 
-StoreCounterController.$inject = ['$scope'];
+StoreCounterController.$inject = ['$scope', 'experimentalService'];
 
 export const storeCounter = {
     controller: StoreCounterController,
 
-    template: `<h3>Store Count: {{$ctrl.storeCount}}</h3><span></span><button ng-click="$ctrl.increment()">+</button><button ng-click="$ctrl.decrement()">-</button>`,
+    template: `<h3 style="display:inline;margin-right:10px">Store Count: {{$ctrl.storeCount}}</h3><span></span>
+    <button ng-click="$ctrl.increment()">+</button><button ng-click="$ctrl.decrement()">-</button>
+    <h3>Experimental service id: {{$ctrl.experimentalService.value}}</h3>`,
 }
