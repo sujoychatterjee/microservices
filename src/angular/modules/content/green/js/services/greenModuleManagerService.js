@@ -1,6 +1,6 @@
 import { TriggerHandlerService } from "./triggerHandlerService";
 import { routeDetails } from "../router";
-import { store } from '../store/reducers';
+import { storeDefinition as store } from '../store/store';
 import { epics } from '../store/epics';
 
 class GreenModuleManagerService extends TriggerHandlerService {

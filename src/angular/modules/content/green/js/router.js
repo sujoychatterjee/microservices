@@ -1,4 +1,4 @@
-import { setStore } from './utils/connectWrapper';
+import { setStore } from './store/store';
 
 class GreenModuleController {
 
