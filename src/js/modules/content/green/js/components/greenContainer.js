@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Frame } from '../../../../../../react/components/frame';
-import { StoreCounter } from './storeCounter';
 import { AngularBootstrapper } from './angularBootstrapper';
 
 export class GreenContainer extends React.Component {
@@ -12,16 +11,14 @@ export class GreenContainer extends React.Component {
     }
 
     render() {
-        return <Frame setRoot={this.setRoot.bind(this)}>
+        const bindings = {
+            viewId: this.props.viewId,
+            services: this.props.services,
+        }
+        return <Frame>
             <div id="green-content">
-                <AngularBootstrapper root={this.state.rootElement}  content={<green-component view-id={this.props.viewId}/>}/>
+                <AngularBootstrapper moduleName='greenModule' componentName='greenComponent' bindings={bindings}/>
             </div>
         </Frame>;
-    }
-
-    setRoot(root) {
-        this.setState({
-            rootElement: root,
-        });
     }
 }

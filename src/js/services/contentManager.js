@@ -4,7 +4,8 @@ import { epic$ } from '../../store/epics/epicRegistery';
 import { combineEpics } from 'redux-observable';
 export class ContentMananger {
     
-    constructor(triggerHandler, $transitions) {
+    constructor(triggerHandler, $transitions, experimentalService) {
+        this.experimentalService = experimentalService;
         this.content = [];
         this.delayQueue = [];
         this.triggerHandler = triggerHandler;
@@ -68,8 +69,11 @@ export class ContentMananger {
         this.$transitions.onBefore({ to: '**' }, (trans) => {
             let params = trans.params();
             let newTrans = true;
+            const services = {
+                experimentalService: this.experimentalService,
+            }
             if (params.store === null) {
-                params = { ...params, store };
+                params = { ...params, store, services };
                 newTrans = trans.router.stateService.target(trans.to(), params);
             }
             return newTrans;
@@ -103,4 +107,4 @@ export class ContentMananger {
     }
 }
 
-ContentMananger.$inject = ['triggerHandler', '$transitions'];
+ContentMananger.$inject = ['triggerHandler', '$transitions', 'experimentalService'];

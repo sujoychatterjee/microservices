@@ -7,7 +7,7 @@
 
 
 import * as angular from 'angular';
-import './angular/modules/appModule';
+import './js/modules/appModule';
 
 angular.bootstrap(document.getElementById('root'), ['app'], {
   strictDi: true,

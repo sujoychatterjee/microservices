@@ -1,29 +1,28 @@
 import { setStore as connectSetStore } from '../utils/connectWrapper';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 export let store;
 export let store$;
 
 export const storeDefinition = [{
-    name: 'blue',
+    name: 'green',
     initialState: {
-        count: 100,
+        count: 50,
     },
     reducers: {
-        increment_blue_count: (state, action) => {
+        increment_green_count: (state, action) => {
             return {...state, count: state.count + 1};
         },
-        decrement_blue_count: (state, action) => {
+        decrement_green_count: (state, action) => {
             return {...state, count: state.count - 1};
         },
     }
-}];
-
+}]
 
 export const setStore = (stateStore) => {
     store = stateStore;
-    store$ = new BehaviorSubject();
-    stateStore.subscribe((state) => store$.next(state));
+    store$ = new BehaviorSubject(store.getState());
+    store.subscribe(() => store$.next(store.getState()));
 
     connectSetStore(stateStore);
 }
