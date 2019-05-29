@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import styles from '../../css/frame.css'
 export class Frame extends React.Component {
     componentDidMount() {
-      this.iframeHead = this.node.contentDocument.head
-      this.iframeRoot = this.node.contentDocument.body
-      this.forceUpdate()
+      this.iframeHead = this.node.contentDocument.head;
+      this.iframeRoot = this.node.contentDocument.body;
+      this.forceUpdate();
+      if (this.props.setroot) {
+        this.props.setroot(this.iframeRoot);
+      }
     }
   
     render() {
-      const { children, head, ...rest } = this.props
+      const { children, head, setroot, ...rest } = this.props
       return (
         <iframe {...rest} ref={node => (this.node = node)} className="iframe-frame">
           {this.iframeHead && ReactDOM.createPortal(head, this.iframeHead)}
