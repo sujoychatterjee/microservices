@@ -2,7 +2,6 @@ import React from 'react';
 import { connect as reduxConnect, Provider } from 'react-redux';
 
 let stateStore;
-export let store$;
 
 class ConnectWrapperProvider {
     constructor() {

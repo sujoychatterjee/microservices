@@ -6,15 +6,15 @@ export class Frame extends React.Component {
       this.iframeHead = this.node.contentDocument.head;
       this.iframeRoot = this.node.contentDocument.body;
       this.forceUpdate();
-      if (this.props.setroot) {
-        this.props.setroot(this.iframeRoot);
+      if (this.props.setRoot) {
+        this.props.setRoot(this.iframeRoot);
       }
     }
   
     render() {
-      const { children, head, setroot, ...rest } = this.props
+      const { children, head } = this.props
       return (
-        <iframe {...rest} ref={node => (this.node = node)} className="iframe-frame">
+        <iframe ref={node => (this.node = node)} className="iframe-frame">
           {this.iframeHead && ReactDOM.createPortal(head, this.iframeHead)}
           {this.iframeRoot && ReactDOM.createPortal(children, this.iframeRoot)}
         </iframe>
