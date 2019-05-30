@@ -1,4 +1,5 @@
 import React from 'react';
+import * as angular from 'angular';
 
 export class AngularBootstrapper extends React.Component {
     render() {

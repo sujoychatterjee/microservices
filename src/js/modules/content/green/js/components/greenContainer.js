@@ -1,5 +1,4 @@
 import React from 'react';
-import { Frame } from '../../../../../../react/components/frame';
 import { AngularBootstrapper } from './angularBootstrapper';
 import '../modules/greenModule';
 import { setStore } from '../store/store';

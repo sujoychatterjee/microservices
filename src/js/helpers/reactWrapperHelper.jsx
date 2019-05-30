@@ -1,4 +1,4 @@
-import { Frame } from "../../react/components/frame";
+import { Frame } from "../components/frame";
 import React from 'react';
 
 export function getReactWrapper(Component) {
