@@ -1,6 +1,4 @@
 import React from 'react';
-import * as angular from 'angular';
-import '../modules/greenModule';
 
 export class AngularBootstrapper extends React.Component {
     render() {

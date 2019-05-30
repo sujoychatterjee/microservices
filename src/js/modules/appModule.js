@@ -8,8 +8,13 @@ import { TriggerHandlerService } from '../services/triggerHanderService';
 
 // -----------------------
 import { blueModule, rootComponent as blueRootComponent } from '../modules/content/blue/js/blueModule';
-import { greenModule, rootComponent as greenRootComponent } from '../modules/content/green/js/greenModule';
+import '../modules/content/green/js/greenModule';
 // -----------------------
+
+import { registerModuleHelper } from '../services/registerModuleHelper';
+
+const moduleComponents = registerModuleHelper.getComponents();
+const moduleOptions = registerModuleHelper.getModuleOptions();
 
 let $stateProviderSaved;
 
@@ -24,8 +29,12 @@ app.run(['contentManager', (contentMananger) => {
 
     // -----------------------
     blueModule.init(contentMananger);
-    greenModule.init(contentMananger);
     // -----------------------
+
+    moduleOptions.forEach((options) => {
+        contentMananger.registerContent(options);
+    });
+    
 }]);
 
 app.component('rootApp', RootApp);
@@ -34,5 +43,8 @@ app.service('triggerHandler', TriggerHandlerService);
 
 // -----------------------
 app.component(blueRootComponent.name, blueRootComponent.component);
-app.component(greenRootComponent.name, greenRootComponent.component);
 // -----------------------
+
+moduleComponents.forEach((component) => {
+    app.component(component.name, component.value);
+});
