@@ -7,7 +7,7 @@ import { ContentMananger } from '../services/contentManager';
 import { TriggerHandlerService } from '../services/triggerHanderService';
 
 // -----------------------
-import { blueModule, rootComponent as blueRootComponent } from '../modules/content/blue/js/blueModule';
+import '../modules/content/blue/js/blueModule';
 import '../modules/content/green/js/greenModule';
 // -----------------------
 
@@ -27,10 +27,6 @@ app.config(['$stateProvider', ($stateProvider) => {
 app.run(['contentManager', (contentMananger) => {
     contentMananger.initialize($stateProviderSaved);
 
-    // -----------------------
-    blueModule.init(contentMananger);
-    // -----------------------
-
     moduleOptions.forEach((options) => {
         contentMananger.registerContent(options);
     });
@@ -40,10 +36,6 @@ app.run(['contentManager', (contentMananger) => {
 app.component('rootApp', RootApp);
 app.service('contentManager', ContentMananger);
 app.service('triggerHandler', TriggerHandlerService);
-
-// -----------------------
-app.component(blueRootComponent.name, blueRootComponent.component);
-// -----------------------
 
 moduleComponents.forEach((component) => {
     app.component(component.name, component.value);
