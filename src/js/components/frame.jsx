@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styles from '../../css/frame.css'
+import styles from '../../css/frame.css';
 export class Frame extends React.Component {
     componentDidMount() {
       this.iframeHead = this.node.contentDocument.head;

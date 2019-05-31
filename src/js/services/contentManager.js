@@ -2,6 +2,8 @@ import reducerRegistry from '../../store/reducers/reducerRegistery';
 import { store } from '../../store/stateStore';
 import { epic$ } from '../../store/epics/epicRegistery';
 import { combineEpics } from 'redux-observable';
+import { registerModuleHelper } from './registerModuleHelper';
+
 export class ContentMananger {
     
     constructor(triggerHandler, $transitions, experimentalService) {
@@ -28,14 +30,14 @@ export class ContentMananger {
             url: contentData.url,
             template: contentData.template,
             controller: contentData.controller,
-            controllerAs: contentData.controllerAs,
+            controllerAs: 'vm',
             params: contentData.params,
           };
         const storeDefs = contentData.store;
         const epicDefs = contentData.epics;
         const outbound$ = contentData.triggerHelpers ? contentData.triggerHelpers.outbound : undefined;
         if (this.$stateProvider) {
-        const storeDef = contentData.store;
+            const storeDef = contentData.store;
             this.register({stateDefinition, storeDefs, epicDefs, outbound$});
         } else {
             this.delayQueue = [...this.delayQueue, {stateDefinition, storeDefs, epicDefs, outbound$}]
