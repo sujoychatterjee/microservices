@@ -19,7 +19,7 @@ function getController(params) {
 
 function getTemplate(name, params) {
     const paramNames = Object.keys(params);
-    const paramsString = paramNames.reduce((paramsString, paramName) => paramsString + `${hyphenate(paramName)}="vm.${paramName}"`, '');
+    const paramsString = paramNames.reduce((paramsString, paramName) => `${paramsString} ${hyphenate(paramName)}="vm.${paramName}"`, '');
     return `<${hyphenate(name)} ${paramsString} />`;
 }
 

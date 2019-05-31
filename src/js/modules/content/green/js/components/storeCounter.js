@@ -3,11 +3,10 @@ import { pluck } from 'rxjs/operators';
 
 class StoreCounterController {
     constructor($scope, experimentalService) {
-        this.$scope = $scope;
         this.experimentalServiceOwn = experimentalService;
         store$.pipe(pluck('count')).subscribe((count) => {
             this.storeCount = count;
-            this.$scope.$applyAsync();
+            $scope.$applyAsync();
         });
     }
 
