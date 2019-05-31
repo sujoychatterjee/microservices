@@ -1,4 +1,5 @@
 const path = require('path');
+const multi = require('multi-loader');
 
 module.exports = {
     mode: 'development',
@@ -10,10 +11,11 @@ module.exports = {
       rules: [
       {
         test: /\.css$/,
-        use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
-        ]
+          use: [
+              {
+                  loader: multi('style-loader!css-loader', 'to-string-loader!css-loader')
+              }
+          ]
       },{
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
