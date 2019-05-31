@@ -1,7 +1,7 @@
 import React from 'react';
-import { Frame } from '../../../../../../react/components/frame';
 import { StoreCounter } from './storeCounter';
 import styles from '../../css/blueStyles.css';
+import { setStore } from '../utils/connectWrapper';
 
 export class BlueContainer extends React.Component {
     getStyleComponent() {
@@ -10,14 +10,18 @@ export class BlueContainer extends React.Component {
         );
     }
 
+    constructor(props) {
+        super(props);
+        setStore(props.store);
+        props.store.dispatch({
+            type: 'add_tab',
+            payload: {id: this.viewId, details: { title: 'Blue tab', name: 'blue'}, params: { viewId: props.viewId } },
+        });
+    }
     render() {
-        return (
-            <Frame head={this.getStyleComponent()}>
-                <div id="blue-content">
-                    <h2>This is Blue content (ID: {this.props.viewId})</h2>
-                    <StoreCounter/>
-                </div>
-            </Frame>
-        )
+        return <div id="blue-content">
+            <h2>This is Blue content (ID: {this.props.viewId})</h2>
+            <StoreCounter />
+        </div>;
     }
 }

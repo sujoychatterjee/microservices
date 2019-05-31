@@ -1,19 +1,10 @@
-import { react2angular } from 'react2angular';
-import styles from '../css/blueStyles.css';
-import { blueModuleManagerService } from './services/blueModuleManagerService';
-import { BlueContainer } from './components/blueContainer';
+import { blueModuleManagerService } from './helpers/blueModuleManagerService';
+import { registerModuleHelper } from '../../../../services/registerModuleHelper';
 
 class BlueModule {
-  init(contentManager) {
-    contentManager.registerContent(blueModuleManagerService.getRegisterObject());
+  constructor() {
+    registerModuleHelper.registerModule(blueModuleManagerService.getRegisterObject());
   }
 }
 
 export const blueModule = new BlueModule();
-export const rootComponent = {
-  name: 'blueContainer',
-  component: react2angular(
-    BlueContainer,
-    ['viewId']
-  ),
-};

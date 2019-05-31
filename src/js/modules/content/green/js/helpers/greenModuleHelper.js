@@ -1,13 +1,12 @@
-import { TriggerHandlerService } from "./triggerHandlerService";
+import { TriggerHandler } from "./triggerHandler";
 import { routeDetails } from "../router";
 import { storeDefinition as store } from '../store/store';
 import { epics } from '../store/epics';
 
-class GreenModuleManagerService extends TriggerHandlerService {
+class GreenModuleHelper {
 
     constructor() {
-        super();
-        const { inbound$, outbound$ } = new TriggerHandlerService();
+        const { inbound$, outbound$ } = new TriggerHandler();
         this.inbound$ = inbound$;
         this.outbound$ = outbound$;
     }
@@ -28,4 +27,4 @@ class GreenModuleManagerService extends TriggerHandlerService {
     }
 }
 
-export const greenModuleManagerService = new GreenModuleManagerService();
+export const greenModuleHelper = new GreenModuleHelper();

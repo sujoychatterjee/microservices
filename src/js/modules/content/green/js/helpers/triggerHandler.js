@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { routeDetails } from '../router';
 
-export class TriggerHandlerService {
+export class TriggerHandler {
 
     constructor() {
         this.inbound$ = new Subject();
