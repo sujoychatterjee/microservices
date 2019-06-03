@@ -1,5 +1,5 @@
 const path = require('path');
-const multi = require('multi-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -7,6 +7,11 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+        }),
+    ],
     module: {
         rules: [
             {
@@ -14,7 +19,9 @@ module.exports = {
                 include: path.resolve(__dirname, "src/js/modules/content/blue"),
                 exclude: path.resolve(__dirname, "src/css"),
                 use: [
-                    {loader: "to-string-loader"},
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     {loader: "css-loader"},
                 ]
             },

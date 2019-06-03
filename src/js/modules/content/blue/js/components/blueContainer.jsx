@@ -7,7 +7,7 @@ import {BlueInnerContainer} from './blueInnerComponent'
 export class BlueContainer extends React.Component {
     getStyleComponent() {
         return (
-            <style>{styles}</style>
+            <link rel="stylesheet" type="text/css" href={'/main.css'}/>
         );
     }
 

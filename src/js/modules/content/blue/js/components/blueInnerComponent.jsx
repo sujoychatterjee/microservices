@@ -5,7 +5,7 @@ export class BlueInnerContainer extends React.Component {
 
     render() {
         return(
-            <div className={styles.inner}>This is inner container</div>
+            <div className='inner'>This is inner container</div>
         )
     }
 }
