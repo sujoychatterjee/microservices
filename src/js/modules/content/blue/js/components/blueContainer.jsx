@@ -2,6 +2,7 @@ import React from 'react';
 import { StoreCounter } from './storeCounter';
 import styles from '../../css/blueStyles.css';
 import { setStore } from '../utils/connectWrapper';
+import {BlueInnerContainer} from './blueInnerComponent'
 
 export class BlueContainer extends React.Component {
     getStyleComponent() {
@@ -19,9 +20,13 @@ export class BlueContainer extends React.Component {
         });
     }
     render() {
-        return <div id="blue-content">
-            <h2>This is Blue content (ID: {this.props.viewId})</h2>
-            <StoreCounter />
-        </div>;
+        return [
+            this.getStyleComponent(),
+            <div id="blue-content">
+                <h2>This is Blue content (ID: {this.props.viewId})</h2>
+                <BlueInnerContainer/>
+                <StoreCounter/>
+            </div>
+        ];
     }
 }
