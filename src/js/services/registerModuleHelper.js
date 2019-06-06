@@ -1,7 +1,7 @@
 import { react2angular } from "react2angular";
 import { getReactWrapper } from "../helpers/reactWrapperHelper";
 
-function getController(params) {
+function getController(params, name) {
     class ModuleAngularController {
 
         constructor($state) {
@@ -9,6 +9,7 @@ function getController(params) {
             Object.keys(params).forEach((param) => {
                 this[param] = this.$state.params[param];
             });
+            this.htmlLink = `/modules/${name}/index.html`;
         }
     }
 
@@ -19,7 +20,7 @@ function getController(params) {
 
 function getTemplate(name, params) {
     const paramNames = Object.keys(params);
-    const paramsString = paramNames.reduce((paramsString, paramName) => `${paramsString} ${hyphenate(paramName)}="vm.${paramName}"`, '');
+    const paramsString = paramNames.reduce((paramsString, paramName) => `${paramsString} html-link="vm.htmlLink" ${hyphenate(paramName)}="vm.${paramName}"`, '');
     return `<${hyphenate(name)} ${paramsString} />`;
 }
 
@@ -42,7 +43,7 @@ class RegisterModuleHelper {
         return this.moduleOptions.map((options) => {
             return {
                 name: options.componentName,
-                value: react2angular(getReactWrapper(options.component), Object.keys(options.params)),
+                value: react2angular(getReactWrapper(options.component), [...Object.keys(options.params), 'htmlLink']),
             }
         });
     }
@@ -50,7 +51,7 @@ class RegisterModuleHelper {
     getModuleOptions() {
         return this.moduleOptions.map((options) => ({
             ...options,
-            controller: getController(options.params),
+            controller: getController(options.params, options.name),
             template: getTemplate(options.componentName, options.params),
         }));
     }

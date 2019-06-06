@@ -1,14 +1,14 @@
 import * as angular from 'angular';
 import '@uirouter/angularjs';
-import '../modules/basicModule';
+import './basicModule';
 import '../modules/content';
 import { RootApp } from '../components/rootApp';
 import { ContentMananger } from '../services/contentManager';
 import { TriggerHandlerService } from '../services/triggerHanderService';
 
 // -----------------------
-import '../modules/content/blue/js/blueModule';
-import '../modules/content/green/js/greenModule';
+import 'blue';
+import 'green';
 // -----------------------
 
 import { registerModuleHelper } from '../services/registerModuleHelper';
@@ -30,7 +30,6 @@ app.run(['contentManager', (contentMananger) => {
     moduleOptions.forEach((options) => {
         contentMananger.registerContent(options);
     });
-    
 }]);
 
 app.component('rootApp', RootApp);
