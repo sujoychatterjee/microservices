@@ -1,29 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// function recursiveIssuer(m) {
-//   // console.log(Object.keys(m));
-//   console.log('-------------------')
-//   console.log(m.constructor.resource);
-//   console.log(m.resource);
-//   console.log('-------------------')
-//   return true;
-// }
-
-
-function recursiveIssuer(m, c) {
-  console.log(c && c[0]);
-  if (m.issuer) {
-    return recursiveIssuer(m.issuer);
-  } else if (m.name) {
-    console.log(m.name);
-    return m.name;
-  } else {
-    console.log('not fouind');
-    return false;
-  }
-}
-
 module.exports = {
     mode: 'development',
     entry: {
@@ -42,17 +19,6 @@ module.exports = {
     ],
     module: {
         rules: [
-            // {
-            //     test: /\.css$/,
-            //     include: path.resolve(__dirname, "modules/blue"),
-            //     exclude: path.resolve(__dirname, "src/css"),
-            //     use: [
-            //         {
-            //             loader: MiniCssExtractPlugin.loader,
-            //         },
-            //         {loader: "css-loader"},
-            //     ]
-            // },
             {
               test: /\.css$/,
               include: [path.resolve(__dirname, "modules/blue"), path.resolve(__dirname, "modules/green")],
