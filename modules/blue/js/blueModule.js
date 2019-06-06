@@ -1,9 +1,9 @@
 import { blueModuleManagerService } from './helpers/blueModuleManagerService';
-import { registerModuleHelper } from '../../../src/js/services/registerModuleHelper';
+import { registerModule } from 'microservices-helper';
 
 class BlueModule {
   constructor() {
-    registerModuleHelper.registerModule(blueModuleManagerService.getRegisterObject());
+    registerModule(blueModuleManagerService.getRegisterObject());
   }
 }
 

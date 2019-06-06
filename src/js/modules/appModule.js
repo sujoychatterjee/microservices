@@ -11,10 +11,10 @@ import 'blue';
 import 'green';
 // -----------------------
 
-import { registerModuleHelper } from '../services/registerModuleHelper';
+import { getComponents, getModuleOptions } from 'microservices-helper';
 
-const moduleComponents = registerModuleHelper.getComponents();
-const moduleOptions = registerModuleHelper.getModuleOptions();
+const moduleComponents = getComponents();
+const moduleOptions = getModuleOptions();
 
 let $stateProviderSaved;
 

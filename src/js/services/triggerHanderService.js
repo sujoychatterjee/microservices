@@ -1,5 +1,3 @@
-import { store } from '../../store/stateStore';
-
 export class TriggerHandlerService {
     constructor($state) {
         this.$state = $state;

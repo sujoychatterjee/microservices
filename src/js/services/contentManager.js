@@ -2,7 +2,7 @@ import reducerRegistry from '../../store/reducers/reducerRegistery';
 import { store } from '../../store/stateStore';
 import { epic$ } from '../../store/epics/epicRegistery';
 import { combineEpics } from 'redux-observable';
-import { registerModuleHelper } from './registerModuleHelper';
+import { getParams } from 'microservices-helper';
 
 export class ContentMananger {
     
@@ -31,7 +31,7 @@ export class ContentMananger {
             template: contentData.template,
             controller: contentData.controller,
             controllerAs: 'vm',
-            params: contentData.params,
+            params: getParams(contentData.params),
           };
         const storeDefs = contentData.store;
         const epicDefs = contentData.epics;

@@ -6,8 +6,6 @@ export const routeDetails = {
     componentName: 'blueContainer',
     component: BlueContainer,
     params: {
-        store: null,
         viewId: '',
-        services: {},
     },
 }

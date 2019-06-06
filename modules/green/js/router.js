@@ -6,8 +6,6 @@ export const routeDetails = {
     componentName: 'greenContainer',
     component: GreenContainer,
     params: {
-        store: null,
-        services: {},
         viewId: '',
     },
 }

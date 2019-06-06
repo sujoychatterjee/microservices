@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from '../utils/connectWrapper';
+import { connect } from '../store/store';
 
 class StoreCounterComponent extends React.Component {
     render() {
@@ -7,14 +7,6 @@ class StoreCounterComponent extends React.Component {
         <h3>Store Count: {this.props.count}</h3> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button>
         <h3>Blue Internal Count: {this.props.blue.count}</h3>  <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
         </>;
-    }
-
-    increment() {
-        console.log('increment');
-    }
-
-    decrement() {
-        console.log('decrement');
     }
 }
 

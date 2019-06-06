@@ -1,7 +1,21 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
 #green-content {
     background: greenyellow;
     height: 100%;
     width: 100%;
+}
+
+green-component {
+    overflow: hidden;
+    display: block;
 }
 
 #green-content h3 {

@@ -1,11 +1,9 @@
-import { react2angular } from 'react2angular';
 import { greenModuleHelper } from './helpers/greenModuleHelper';
-import { GreenContainer } from './components/greenContainer';
-import { registerModuleHelper } from '../../../src/js/services/registerModuleHelper';
+import { registerModule } from 'microservices-helper';
 
 class GreenModule {
   constructor() {
-    registerModuleHelper.registerModule(greenModuleHelper.getRegisterObject());
+    registerModule(greenModuleHelper.getRegisterObject());
   }
 }
 

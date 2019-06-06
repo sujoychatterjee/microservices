@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoreCounter } from './storeCounter';
 import styles from '../../css/blueStyles.css';
-import { setStore } from '../utils/connectWrapper';
+import { setStore } from '../store/store';
 import {BlueInnerContainer} from './blueInnerComponent';
 
 export class BlueContainer extends React.Component {
