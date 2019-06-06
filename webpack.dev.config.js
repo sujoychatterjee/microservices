@@ -3,32 +3,34 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
+const modules = ['green', 'blue'];
+
+const modulesPluginConfig = modules.map((moduleName) => new HtmlWebpackPlugin({
+    filename: `${moduleName}.html`, //relative to root of the application
+    chunks: [moduleName],
+    excludeAssets: [/.*\.js$/]
+}));
+
+const moduleEntries = modules.reduce((entries, moduleName) => ({...entries, [moduleName]: `./modules/${moduleName}`}), {})
+
+const modulePaths = modules.map((moduleName) => path.resolve(__dirname, `modules/${moduleName}`));
+
 module.exports = {
     mode: 'development',
     entry: {
         main: './src/app.js',
-        blue: './modules/blue',
-        green: './modules/green',
+        ...moduleEntries,
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
     plugins: [
+        ...modulesPluginConfig,
         new HtmlWebpackPlugin({
             template: 'main-app.html',
             filename: 'index.html', //relative to root of the application
             chunks: ['main'],
             excludeAssets: [/.*\.css$/]
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'blue.html', //relative to root of the application
-            chunks: ['blue'],
-            excludeAssets: [/.*\.js$/]
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'green.html', //relative to root of the application
-            chunks: ['green'],
-            excludeAssets: [/.*\.js$/]
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
         new MiniCssExtractPlugin({
@@ -40,7 +42,7 @@ module.exports = {
         rules: [
             {
               test: /\.css$/,
-              include: [path.resolve(__dirname, "modules/blue"), path.resolve(__dirname, "modules/green")],
+              include: modulePaths,
               exclude: path.resolve(__dirname, "src/css"),
               use: [
                   {
@@ -51,7 +53,7 @@ module.exports = {
             },
             {
                 test: /\.css/,
-                exclude: [path.resolve(__dirname, "modules/blue"), path.resolve(__dirname, "modules/green")],
+                exclude: modulePaths,
                 use: [
                     {loader: "style-loader"},
                     {loader: "css-loader"},
