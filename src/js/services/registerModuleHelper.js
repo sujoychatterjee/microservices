@@ -9,7 +9,7 @@ function getController(params, name) {
             Object.keys(params).forEach((param) => {
                 this[param] = this.$state.params[param];
             });
-            this.htmlLink = `/modules/${name}/index.html`;
+            this.htmlLink = `/${name}.html`;
         }
     }
 

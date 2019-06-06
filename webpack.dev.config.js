@@ -1,5 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
 module.exports = {
     mode: 'development',
@@ -12,8 +14,25 @@ module.exports = {
         extensions: ['*', '.js', '.jsx']
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: 'main-app.html',
+            filename: 'index.html', //relative to root of the application
+            chunks: ['main'],
+            excludeAssets: [/.*\.css$/]
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'blue.html', //relative to root of the application
+            chunks: ['blue'],
+            excludeAssets: [/.*\.js$/]
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'green.html', //relative to root of the application
+            chunks: ['green'],
+            excludeAssets: [/.*\.js$/]
+        }),
+        new HtmlWebpackExcludeAssetsPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: '[name].[hash].css',
         }),
         
     ],
@@ -51,7 +70,7 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[hash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
     devServer: {
