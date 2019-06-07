@@ -1,5 +1,6 @@
 import { react2angular } from "react2angular";
-import { getReactWrapper } from "../helpers/reactWrapperHelper";
+import { getReactWrapper } from "./reactWrapperHelper";
+import { getParams } from '../utils/paramsUtil';
 
 function getController(params, name) {
     class ModuleAngularController {
@@ -33,6 +34,10 @@ function hyphenate(string) {
 class RegisterModuleHelper {
     constructor() {
         this.moduleOptions = [];
+        this.registerModule = this.registerModule.bind(this);
+        this.getComponents = this.getComponents.bind(this);
+        this.getModuleOptions = this.getModuleOptions.bind(this);
+        
     }
 
     registerModule(options) {
@@ -43,18 +48,26 @@ class RegisterModuleHelper {
         return this.moduleOptions.map((options) => {
             return {
                 name: options.componentName,
-                value: react2angular(getReactWrapper(options.component), [...Object.keys(options.params), 'htmlLink']),
+                value: react2angular(getReactWrapper(options.component), [...Object.keys(getParams(options.params)), 'htmlLink']),
             }
         });
     }
 
     getModuleOptions() {
-        return this.moduleOptions.map((options) => ({
-            ...options,
-            controller: getController(options.params, options.name),
-            template: getTemplate(options.componentName, options.params),
-        }));
+        return this.moduleOptions.map((options) => {
+            const params = getParams(options.params);
+            return {
+                ...options,
+                controller: getController(params, options.name),
+                template: getTemplate(options.componentName, params),
+            }
+        });
+    }
+
+    getParams(params) {
+        return {...params, ...defaultParams};
     }
 }
 
-export const registerModuleHelper = new RegisterModuleHelper();
+const registerModuleHelper = new RegisterModuleHelper();
+export const { registerModule, getComponents, getModuleOptions } = registerModuleHelper

@@ -1,9 +1,3 @@
-import { setStore as connectSetStore } from '../utils/connectWrapper';
-import { BehaviorSubject } from "rxjs";
-
-export let store;
-export let store$;
-
 export const storeDefinition = [{
     name: 'blue',
     initialState: {
@@ -19,11 +13,4 @@ export const storeDefinition = [{
     }
 }];
 
-
-export const setStore = (stateStore) => {
-    store = stateStore;
-    store$ = new BehaviorSubject(store.getState());
-    store.subscribe(() => store$.next(store.getState()));
-
-    connectSetStore(stateStore);
-}
+export { connect, setStore, store, store$ } from 'microservices-helper';

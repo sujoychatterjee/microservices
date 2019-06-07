@@ -22,6 +22,7 @@
     "angular": "1.5.11",
     "blue": "1.0.0",
     "green": "1.0.0",
+    "microservices-helper": "1.0.0",
     "mini-css-extract-plugin": "^0.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
