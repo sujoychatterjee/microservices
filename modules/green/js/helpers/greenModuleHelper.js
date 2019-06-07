@@ -21,7 +21,7 @@ class GreenModuleHelper {
             epics,
             triggerHelpers: {
                 inbound: this.inbound$,
-                outbound: this.outbound$.asObservable(),
+                outbound: this.outbound$,
             },
         }
     }

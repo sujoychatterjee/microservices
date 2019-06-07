@@ -2,6 +2,10 @@ import { getParams } from '../utils/paramsUtil';
 
 import { getComponents, getModuleOptions } from './registerModuleHelper';
 
+export let sendModuleTrigger;
+export let executeModuleFunctionality;
+export let getContent;
+
 function getContentManagerService(injectedServices, storeDetails) {
 
     const { store, epic$, reducerRegistry, combineEpics } = storeDetails;
@@ -17,6 +21,9 @@ function getContentManagerService(injectedServices, storeDetails) {
         }
 
         initialize($stateProvider) {
+            sendModuleTrigger = this.sendTrigger.bind(this);
+            executeModuleFunctionality = this.execute.bind(this);
+            getContent = this.getContent.bind(this);
             this.$stateProvider = $stateProvider;
             this.registerDelayed();
         }
@@ -104,6 +111,15 @@ function getContentManagerService(injectedServices, storeDetails) {
             const content = this.getContent(type);
             if (content && content.triggerHelpers && content.triggerHelpers.inbound) {
                 content.triggerHelpers.inbound.next(trigger);
+            }
+        }
+
+        execute(type, functionName) {
+            const content = this.getContent(type);
+            if (content && content.functionality && content.functionality[functionName]) {
+                return (...args) => {
+                    return content.functionality[functionName](...args);
+                }
             }
         }
     }

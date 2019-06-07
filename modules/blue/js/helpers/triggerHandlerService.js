@@ -47,7 +47,7 @@ export class TriggerHandlerService {
     openNewTab({params = this.getRouteParams(), details = this.getViewDetails(params)} = {}) {
         
         this.sendTrigger({
-            action: 'go_to_route',
+            type: 'go_to_route',
             payload: {
                 stateName: routeDetails.routeName,
                 params: params,

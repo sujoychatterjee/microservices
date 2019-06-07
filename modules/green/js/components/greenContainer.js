@@ -1,18 +1,10 @@
 import React from 'react';
 import { AngularBootstrapper } from './angularBootstrapper';
 import '../modules/greenModule';
-import { setStore } from '../store/store';
 import styles from '../../css/greenStyles.css';
+import { moduleContainer } from 'microservices-helper';
 
-export class GreenContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        setStore(props.store);
-        props.store.dispatch({
-            type: 'add_tab',
-            payload: {id: this.viewId, details: { title: 'Green tab', name: 'green'}, params: { viewId: props.viewId } },
-        });
-    }
+class GreenContainerDefinition extends React.Component {
     render() {
         const bindings = {
             viewId: this.props.viewId,
@@ -23,3 +15,5 @@ export class GreenContainer extends React.Component {
             </div>;
     }
 }
+
+export const GreenContainer = moduleContainer(GreenContainerDefinition, {type: 'green', title: 'Green tab'});
