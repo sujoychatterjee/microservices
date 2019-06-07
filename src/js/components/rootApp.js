@@ -1,4 +1,5 @@
-import style from '../../css/rootApp.css';
+import rooAppStyle from '../../css/rootApp.css';
+import frameStyle from '../../css/frame.css';
 
 class RootAppController {
 

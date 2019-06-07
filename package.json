@@ -7,13 +7,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack --config webpack.dev.config.js",
     "build:prod": "webpack --config webpack.prod.config.js",
-    "dev": "webpack-dev-server --config webpack.dev.config.js --watch"
+    "dev": "yarn && webpack-dev-server --config webpack.dev.config.js --watch"
   },
+  "private": true,
   "author": "Sujoy Chatterjee",
   "license": "ISC",
+  "workspaces": {
+    "packages": [
+      "modules/*"
+    ]
+  },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.22",
     "angular": "1.5.11",
+    "blue": "1.0.0",
+    "green": "1.0.0",
+    "microservices-helper": "1.0.0",
+    "mini-css-extract-plugin": "^0.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -29,6 +39,8 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
+    "html-webpack-exclude-assets-plugin": "^0.0.7",
+    "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",

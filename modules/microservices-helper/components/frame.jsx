@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styles from '../../css/frame.css';
 export class Frame extends React.Component {
   constructor() {
     super();
