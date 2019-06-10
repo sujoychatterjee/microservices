@@ -1,6 +1,7 @@
 import { react2angular } from "react2angular";
 import { getReactWrapper } from "./reactWrapperHelper";
 import { getParams } from '../utils/paramsUtil';
+import { DispatchHandler } from "./dispatchHandler";
 
 function getController(params, name) {
     class ModuleAngularController {
@@ -55,11 +56,14 @@ class RegisterModuleHelper {
 
     getModuleOptions() {
         return this.moduleOptions.map((options) => {
-            const params = getParams(options.params);
+            const { params: passedParams, customDispatchHandlers } = options;
+            const params = getParams(passedParams);
             return {
                 ...options,
+                params,
                 controller: getController(params, options.name),
                 template: getTemplate(options.componentName, params),
+                dispatchHandler: new DispatchHandler(customDispatchHandlers),
             }
         });
     }

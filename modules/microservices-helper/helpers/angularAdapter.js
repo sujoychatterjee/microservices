@@ -1,10 +1,13 @@
 import { getParams } from '../utils/paramsUtil';
+import { Subject } from 'rxjs';
 
 import { getComponents, getModuleOptions } from './registerModuleHelper';
 
-export let sendModuleTrigger;
+export let sendTrigger;
 export let executeModuleFunctionality;
 export let getContent;
+
+export const outbound$ = new Subject();
 
 function getContentManagerService(injectedServices, storeDetails) {
 
@@ -16,12 +19,13 @@ function getContentManagerService(injectedServices, storeDetails) {
             this.injectedServices = injectedServices;
             this.content = [];
             this.delayQueue = [];
-            this.triggerHandler = triggerHandler;
             this.$transitions = $transitions;
+
+            outbound$.subscribe(triggerHandler.onTrigger.bind(triggerHandler));
         }
 
         initialize($stateProvider) {
-            sendModuleTrigger = this.sendTrigger.bind(this);
+            sendTrigger = this.sendTrigger.bind(this);
             executeModuleFunctionality = this.execute.bind(this);
             getContent = this.getContent.bind(this);
             this.$stateProvider = $stateProvider;
@@ -34,17 +38,16 @@ function getContentManagerService(injectedServices, storeDetails) {
         }
 
         tryRegister(contentData) {
+            const { store: storeDefs, epics: epicDefs, dispatchHandler, routeName: name, url, template, controller, params } = contentData;
+            const outbound$ = dispatchHandler ? dispatchHandler.outbound$ : undefined;
             const stateDefinition = {
-                name: contentData.routeName,
-                url: contentData.url,
-                template: contentData.template,
-                controller: contentData.controller,
+                name,
+                url,
+                template,
+                controller,
                 controllerAs: 'vm',
-                params: getParams(contentData.params),
+                params,
             };
-            const storeDefs = contentData.store;
-            const epicDefs = contentData.epics;
-            const outbound$ = contentData.triggerHelpers ? contentData.triggerHelpers.outbound : undefined;
             if (this.$stateProvider) {
                 this.register({stateDefinition, storeDefs, epicDefs, outbound$});
             } else {
@@ -88,9 +91,9 @@ function getContentManagerService(injectedServices, storeDetails) {
             });
         }
 
-        registerTrigger(outbound$) {
-            if (outbound$) {
-                outbound$.subscribe(this.triggerHandler.onTrigger.bind(this.triggerHandler));
+        registerTrigger(moduleOutbound$) {
+            if (moduleOutbound$) {
+                moduleOutbound$.subscribe(outbound$);
             }
         }
 
@@ -107,10 +110,12 @@ function getContentManagerService(injectedServices, storeDetails) {
             return this.content.find((contentData) => contentData.name === type);
         }
 
-        sendTrigger(type, trigger) {
-            const content = this.getContent(type);
-            if (content && content.triggerHelpers && content.triggerHelpers.inbound) {
-                content.triggerHelpers.inbound.next(trigger);
+        sendTrigger(trigger, type) {
+            const content = type ? this.getContent(type) : undefined;
+            if (content && content.dispatchHandler && content.dispatchHandler.inbound$) {
+                content.dispatchHandler.inbound$.next(trigger);
+            } else {
+                outbound$.next(trigger);
             }
         }
 

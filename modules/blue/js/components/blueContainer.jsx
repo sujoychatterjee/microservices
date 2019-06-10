@@ -7,7 +7,7 @@ import { moduleContainer } from 'microservices-helper';
 class BlueContainerDefinition extends React.Component {
     render() {
         return <div id="blue-content">
-                <h2>This is Blue content (ID: {this.props.viewId})</h2>
+                <h2>[React] This is Blue content (ID: {this.props.viewId})</h2>
                 <BlueInnerContainer/>
                 <StoreCounter/>
             </div>;

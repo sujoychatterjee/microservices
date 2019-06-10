@@ -13,4 +13,4 @@ export const storeDefinition = [{
     }
 }];
 
-export { connect, setStore, store, store$ } from 'microservices-helper';
+export { connect, store, store$ } from 'microservices-helper';

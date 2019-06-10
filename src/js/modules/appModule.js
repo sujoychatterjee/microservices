@@ -19,11 +19,11 @@ import 'green';
 
 const app = angular.module('app', ['ui.router', 'app.basic', 'app.red', 'app.yellow']);
 
-app.config(['$stateProvider', ($stateProvider) => {
+app.config([() => {
     console.log('Original config callback');
 }]);
 
-app.run(['contentManager', (contentMananger) => {
+app.run([() => {
     console.log('Original run callback');
 }]);
 

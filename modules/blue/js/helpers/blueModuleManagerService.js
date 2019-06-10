@@ -1,14 +1,11 @@
-import { TriggerHandlerService } from "./triggerHandlerService";
 import { routeDetails } from "../route";
 import { storeDefinition as store } from '../store/store';
 import { epics } from '../store/epics';
+import { customHandlers } from './customDispatchHandler';
 
 class BlueModuleManagerService {
 
     constructor() {
-        const { inbound$, outbound$ } = new TriggerHandlerService();
-        this.inbound$ = inbound$;
-        this.outbound$ = outbound$;
         this.name = 'blue';
         this.hint = 'Blue';
         this.color = '#69b4f1';
@@ -22,10 +19,7 @@ class BlueModuleManagerService {
             color: this.color,
             store,
             epics,
-            triggerHelpers: {
-                inbound: this.inbound$,
-                outbound: this.outbound$,
-            },
+            customDispatchHandlers: customHandlers,
         };
     }
 }

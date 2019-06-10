@@ -6,10 +6,11 @@ import { moduleContainer } from 'microservices-helper';
 
 class GreenContainerDefinition extends React.Component {
     render() {
+        const { viewId, services } = this.props;
         const bindings = {
-            viewId: this.props.viewId,
-            services: this.props.services,
-        }
+            viewId,
+            services,
+        };
         return <div id="green-content">
                 <AngularBootstrapper moduleName='greenModule' componentName='greenComponent' bindings={bindings}/>
             </div>;

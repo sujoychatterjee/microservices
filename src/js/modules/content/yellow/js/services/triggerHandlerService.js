@@ -10,7 +10,7 @@ export class TriggerHandlerService {
     }
 
     onTrigger(trigger) {
-        switch(trigger.action) {
+        switch(trigger.type) {
             case 'open_new_tab':
                 this.openNewTab(trigger.payload);
                 break;

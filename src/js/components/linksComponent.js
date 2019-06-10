@@ -6,7 +6,7 @@ class LinksController {
     }
 
     newTab(type) {
-        this.contentManager.sendTrigger(type, {action: 'open_new_tab'});
+        this.contentManager.sendTrigger({type: 'open_new_tab'}, type);
     }
 }
 
