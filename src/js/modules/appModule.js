@@ -1,7 +1,6 @@
 import * as angular from 'angular';
 import '@uirouter/angularjs';
 import './basicModule';
-import '../modules/content';
 import { RootApp } from '../components/rootApp';
 import { CustomDispatchHandlerService } from '../services/customDispatchHandler';
 
@@ -15,9 +14,11 @@ import { initializeModules } from 'microservices-helper/core_helper';
 // -----------------------
 import 'blue';
 import 'green';
+import 'red';
+import 'yellow';
 // -----------------------
 
-const app = angular.module('app', ['ui.router', 'app.basic', 'app.red', 'app.yellow']);
+const app = angular.module('app', ['ui.router', 'app.basic']);
 
 app.config([() => {
     console.log('Original config callback');
@@ -29,7 +30,7 @@ app.run([() => {
 
 app.component('rootApp', RootApp);
 
-const passedServices = ['experimentalService'];
+const passedServices = ['experimentalService'];  
 
 initializeModules(app, CustomDispatchHandlerService, passedServices, {
     store,
