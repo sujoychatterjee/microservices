@@ -1,3 +1,5 @@
+export let dispatch;
+
 export const storeDefinition = [{
     name: 'blue',
     initialState: {
@@ -13,4 +15,8 @@ export const storeDefinition = [{
     }
 }];
 
-export { connect, store, store$ } from 'microservices-helper';
+export function setDispatch(dispatchFn) {
+    dispatch = dispatchFn;
+}
+
+export { connect, store, store$ } from 'microservices-helper/module_helper';

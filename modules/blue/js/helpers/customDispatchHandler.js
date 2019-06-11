@@ -1,5 +1,5 @@
 import { routeDetails } from "../route";
-import { sendTrigger} from 'microservices-helper';
+import { dispatch } from '../store/store';
 
 class CustomDispatchHandler {
     
@@ -25,14 +25,14 @@ class CustomDispatchHandler {
     openNewTab({ payload }) {
         const { params = this.getRouteParams(), details = this.getViewDetails(params) } = payload || {};
         
-        sendTrigger({
+        dispatch({
             type: 'go_to_route',
             payload: {
                 stateName: routeDetails.routeName,
                 params: params,
                 details,
             },
-        });
+        }, 'outer');
     }
 }
 

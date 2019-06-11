@@ -1,9 +1,11 @@
 import { greenModuleHelper } from './helpers/greenModuleHelper';
-import { registerModule } from 'microservices-helper';
+import { registerModule } from 'microservices-helper/module_helper';
+import { setDispatch } from './store/store';
 
 class GreenModule {
   constructor() {
-    registerModule(greenModuleHelper.getRegisterObject());
+    const dispatch = registerModule(greenModuleHelper.getRegisterObject());
+    setDispatch(dispatch);
   }
 }
 

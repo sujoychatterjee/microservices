@@ -2,7 +2,8 @@ import React from 'react';
 import { StoreCounter } from './storeCounter';
 import styles from '../../css/blueStyles.css';
 import {BlueInnerContainer} from './blueInnerComponent';
-import { moduleContainer } from 'microservices-helper';
+import { moduleContainer } from 'microservices-helper/module_helper';
+import { dispatch } from '../store/store';
 
 class BlueContainerDefinition extends React.Component {
     render() {

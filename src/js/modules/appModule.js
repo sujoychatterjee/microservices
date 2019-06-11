@@ -3,14 +3,14 @@ import '@uirouter/angularjs';
 import './basicModule';
 import '../modules/content';
 import { RootApp } from '../components/rootApp';
-import { TriggerHandlerService } from '../services/triggerHanderService';
+import { CustomDispatchHandlerService } from '../services/customDispatchHandler';
 
 import reducerRegistry from '../../store/reducers/reducerRegistery';
 import { store } from '../../store/stateStore';
 import { epic$ } from '../../store/epics/epicRegistery';
 import { combineEpics } from 'redux-observable';
 
-import { initializeModules } from 'microservices-helper';
+import { initializeModules } from 'microservices-helper/core_helper';
 
 // -----------------------
 import 'blue';
@@ -31,7 +31,7 @@ app.component('rootApp', RootApp);
 
 const passedServices = ['experimentalService'];
 
-initializeModules(app, TriggerHandlerService, passedServices, {
+initializeModules(app, CustomDispatchHandlerService, passedServices, {
     store,
     epic$,
     reducerRegistry,

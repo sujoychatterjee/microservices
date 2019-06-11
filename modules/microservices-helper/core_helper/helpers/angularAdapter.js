@@ -1,13 +1,11 @@
-import { getParams } from '../utils/paramsUtil';
 import { Subject } from 'rxjs';
 
-import { getComponents, getModuleOptions } from './registerModuleHelper';
+import { getModuleComponents, getModuleRegisterOptions } from './moduleDetails';
+import { DispatchHandler } from './dispatchHandler';
 
-export let sendTrigger;
+export let dispatch;
 export let executeModuleFunctionality;
 export let getContent;
-
-export const outbound$ = new Subject();
 
 function getContentManagerService(injectedServices, storeDetails) {
 
@@ -15,17 +13,19 @@ function getContentManagerService(injectedServices, storeDetails) {
 
     class ContentMananger {
         
-        constructor(triggerHandler, $transitions, ...injectedServices) {
+        constructor(customHandler, $transitions, ...injectedServices) {
             this.injectedServices = injectedServices;
             this.content = [];
             this.delayQueue = [];
             this.$transitions = $transitions;
 
-            outbound$.subscribe(triggerHandler.onTrigger.bind(triggerHandler));
+            this.dispatchHandler = new DispatchHandler(customHandler.customHandlers, store);
+
+            this.dispatchHandler.outbound$.subscribe(this.sendTrigger.bind(this));
         }
 
-        initialize($stateProvider) {
-            sendTrigger = this.sendTrigger.bind(this);
+        initialize($stateProvider) { 
+            dispatch = this.dispatch.bind(this);
             executeModuleFunctionality = this.execute.bind(this);
             getContent = this.getContent.bind(this);
             this.$stateProvider = $stateProvider;
@@ -93,7 +93,7 @@ function getContentManagerService(injectedServices, storeDetails) {
 
         registerTrigger(moduleOutbound$) {
             if (moduleOutbound$) {
-                moduleOutbound$.subscribe(outbound$);
+                this.dispatchHandler.addNewModuleSubscription(moduleOutbound$);
             }
         }
 
@@ -110,12 +110,14 @@ function getContentManagerService(injectedServices, storeDetails) {
             return this.content.find((contentData) => contentData.name === type);
         }
 
-        sendTrigger(trigger, type) {
-            const content = type ? this.getContent(type) : undefined;
+        dispatch(action, to) {
+            this.sendTrigger({action, to});
+        }
+
+        sendTrigger({ action, to }) {
+            const content = to ? this.getContent(to) : undefined;
             if (content && content.dispatchHandler && content.dispatchHandler.inbound$) {
-                content.dispatchHandler.inbound$.next(trigger);
-            } else {
-                outbound$.next(trigger);
+                content.dispatchHandler.inbound$.next(action);
             }
         }
 
@@ -129,18 +131,18 @@ function getContentManagerService(injectedServices, storeDetails) {
         }
     }
 
-    ContentMananger.$inject = ['triggerHandler', '$transitions', ...injectedServices];
+    ContentMananger.$inject = ['customHandler', '$transitions', ...injectedServices];
 
     return ContentMananger;
 }
 
-export function initializeModules(angularModule, TriggerHandlerService, injectedServices, storeDetails) {
+export function initializeModules(angularModule, CustomDispatchHandlerService, injectedServices, storeDetails) {
     let  $stateProviderSaved;
-    const moduleComponents = getComponents();
-    const moduleOptions = getModuleOptions();
+    const moduleComponents = getModuleComponents();
+    const moduleOptions = getModuleRegisterOptions();
 
     angularModule.service('contentManager', getContentManagerService(injectedServices, storeDetails));
-    angularModule.service('triggerHandler', TriggerHandlerService);
+    angularModule.service('customHandler', CustomDispatchHandlerService);
 
     angularModule.config(['$stateProvider', ($stateProvider) => {
         $stateProviderSaved = $stateProvider;

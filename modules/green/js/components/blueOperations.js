@@ -1,21 +1,21 @@
-import { sendTrigger } from 'microservices-helper';
+import { dispatch } from '../store/store';
 import styles from '../../css/blueOperations.css';
 
 class BlueOperationsController {
     incrementBlueCount() {
-        sendTrigger({
+        dispatch({
             type: 'increment_blue_count',
         }, 'blue');
     }
 
     decrementBlueCount() {
-        sendTrigger({
+        dispatch({
             type: 'decrement_blue_count',
         }, 'blue');
     }
 
     newBlueTab() {
-        sendTrigger({
+        dispatch({
             type: 'open_new_tab',
         }, 'blue');
     }
