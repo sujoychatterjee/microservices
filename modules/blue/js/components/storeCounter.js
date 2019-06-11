@@ -5,7 +5,9 @@ class StoreCounterComponent extends React.Component {
     render() {
         return <>
         <h3>Store Count: {this.props.count}</h3> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button>
-        <h3>Blue Internal Count: {this.props.blue.count}</h3>  <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
+        <h3>Blue Internal Count: {this.props.blue.count}</h3>  
+        <button onClick={this.props.incrementOwn}>+</button> <button onClick={this.props.decrementOwn}>-</button>
+        <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
         </>;
     }
 }
@@ -24,6 +26,16 @@ const mapDispatchToProps = {
     decrement: () => {
         return {
             type: 'decrement_count',
+        };
+    },
+    incrementOwn: () => {
+        return {
+            type: 'increment_blue_count',
+        };
+    },
+    decrementOwn: () => {
+        return {
+            type: 'decrement_blue_count',
         };
     },
     delayedIncrement: () => {

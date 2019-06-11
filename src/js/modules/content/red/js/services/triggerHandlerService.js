@@ -10,7 +10,7 @@ export class TriggerHandlerService {
     }
 
     onTrigger(trigger) {
-        switch(trigger.action) {
+        switch(trigger.type) {
             case 'open_new_tab':
                 this.openNewTab(trigger.payload);
                 break;
@@ -46,7 +46,7 @@ export class TriggerHandlerService {
     openNewTab({params = this.getRouteParams(), details = this.getViewDetails(params)} = {}) {
         
         this.sendTrigger({
-            action: 'go_to_route',
+            type: 'go_to_route',
             payload: {
                 stateName: this.routeName,
                 params: params,

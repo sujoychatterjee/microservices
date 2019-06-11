@@ -1,16 +1,12 @@
 import style from '../../css/links.css';
+import { dispatch } from 'microservices-helper/core_helper'
 
 class LinksController {
-    constructor(contentManager) {
-        this.contentManager = contentManager;
-    }
 
     newTab(type) {
-        this.contentManager.sendTrigger(type, {action: 'open_new_tab'});
+        dispatch({type: 'open_new_tab'}, type);
     }
 }
-
-LinksController.$inject = ['contentManager'];
 
 export const linksComponent = {
     controller: LinksController,

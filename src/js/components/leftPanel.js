@@ -1,4 +1,5 @@
 import style from '../../css/leftPanel.css';
+import { dispatch } from 'microservices-helper/core_helper';
 
 class LeftPanelController {
     constructor(contentManager, $scope) {
@@ -106,13 +107,13 @@ class LeftPanelController {
     }
 
     openItem(data) {
-        this.contentManager.sendTrigger(data.type, { 
-            action: 'open_new_tab',
+        dispatch({ 
+            type: 'open_new_tab',
             payload: {
                 params: { viewId: data.id },
                 details: { title: data.name },
             }
-        });
+        }, data.type);
     }
 
 

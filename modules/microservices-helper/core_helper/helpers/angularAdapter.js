@@ -1,6 +1,11 @@
-import { getParams } from '../utils/paramsUtil';
+import { Subject } from 'rxjs';
 
-import { getComponents, getModuleOptions } from './registerModuleHelper';
+import { getModuleComponents, getModuleRegisterOptions } from './moduleDetails';
+import { DispatchHandler } from './dispatchHandler';
+
+export let dispatch;
+export let executeModuleFunctionality;
+export let getContent;
 
 function getContentManagerService(injectedServices, storeDetails) {
 
@@ -8,15 +13,21 @@ function getContentManagerService(injectedServices, storeDetails) {
 
     class ContentMananger {
         
-        constructor(triggerHandler, $transitions, ...injectedServices) {
+        constructor(customHandler, $transitions, ...injectedServices) {
             this.injectedServices = injectedServices;
             this.content = [];
             this.delayQueue = [];
-            this.triggerHandler = triggerHandler;
             this.$transitions = $transitions;
+
+            this.dispatchHandler = new DispatchHandler(customHandler.customHandlers, store);
+
+            this.dispatchHandler.outbound$.subscribe(this.sendTrigger.bind(this));
         }
 
-        initialize($stateProvider) {
+        initialize($stateProvider) { 
+            dispatch = this.dispatch.bind(this);
+            executeModuleFunctionality = this.execute.bind(this);
+            getContent = this.getContent.bind(this);
             this.$stateProvider = $stateProvider;
             this.registerDelayed();
         }
@@ -27,17 +38,16 @@ function getContentManagerService(injectedServices, storeDetails) {
         }
 
         tryRegister(contentData) {
+            const { store: storeDefs, epics: epicDefs, dispatchHandler, routeName: name, url, template, controller, params } = contentData;
+            const outbound$ = dispatchHandler ? dispatchHandler.outbound$ : undefined;
             const stateDefinition = {
-                name: contentData.routeName,
-                url: contentData.url,
-                template: contentData.template,
-                controller: contentData.controller,
+                name,
+                url,
+                template,
+                controller,
                 controllerAs: 'vm',
-                params: getParams(contentData.params),
+                params,
             };
-            const storeDefs = contentData.store;
-            const epicDefs = contentData.epics;
-            const outbound$ = contentData.triggerHelpers ? contentData.triggerHelpers.outbound : undefined;
             if (this.$stateProvider) {
                 this.register({stateDefinition, storeDefs, epicDefs, outbound$});
             } else {
@@ -81,9 +91,9 @@ function getContentManagerService(injectedServices, storeDetails) {
             });
         }
 
-        registerTrigger(outbound$) {
-            if (outbound$) {
-                outbound$.subscribe(this.triggerHandler.onTrigger.bind(this.triggerHandler));
+        registerTrigger(moduleOutbound$) {
+            if (moduleOutbound$) {
+                this.dispatchHandler.addNewModuleSubscription(moduleOutbound$);
             }
         }
 
@@ -100,26 +110,39 @@ function getContentManagerService(injectedServices, storeDetails) {
             return this.content.find((contentData) => contentData.name === type);
         }
 
-        sendTrigger(type, trigger) {
+        dispatch(action, to) {
+            this.sendTrigger({action, to});
+        }
+
+        sendTrigger({ action, to }) {
+            const content = to ? this.getContent(to) : undefined;
+            if (content && content.dispatchHandler && content.dispatchHandler.inbound$) {
+                content.dispatchHandler.inbound$.next(action);
+            }
+        }
+
+        execute(type, functionName) {
             const content = this.getContent(type);
-            if (content && content.triggerHelpers && content.triggerHelpers.inbound) {
-                content.triggerHelpers.inbound.next(trigger);
+            if (content && content.functionality && content.functionality[functionName]) {
+                return (...args) => {
+                    return content.functionality[functionName](...args);
+                }
             }
         }
     }
 
-    ContentMananger.$inject = ['triggerHandler', '$transitions', ...injectedServices];
+    ContentMananger.$inject = ['customHandler', '$transitions', ...injectedServices];
 
     return ContentMananger;
 }
 
-export function initializeModules(angularModule, TriggerHandlerService, injectedServices, storeDetails) {
+export function initializeModules(angularModule, CustomDispatchHandlerService, injectedServices, storeDetails) {
     let  $stateProviderSaved;
-    const moduleComponents = getComponents();
-    const moduleOptions = getModuleOptions();
+    const moduleComponents = getModuleComponents();
+    const moduleOptions = getModuleRegisterOptions();
 
     angularModule.service('contentManager', getContentManagerService(injectedServices, storeDetails));
-    angularModule.service('triggerHandler', TriggerHandlerService);
+    angularModule.service('customHandler', CustomDispatchHandlerService);
 
     angularModule.config(['$stateProvider', ($stateProvider) => {
         $stateProviderSaved = $stateProvider;

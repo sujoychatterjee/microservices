@@ -1,10 +1,12 @@
 import { blueModuleManagerService } from './helpers/blueModuleManagerService';
-import { registerModule } from 'microservices-helper';
+import { registerModule } from 'microservices-helper/module_helper';
+import { setDispatch } from './store/store';
 
 class BlueModule {
   constructor() {
-    registerModule(blueModuleManagerService.getRegisterObject());
+    const dispatch = registerModule(blueModuleManagerService.getRegisterObject());
+    setDispatch(dispatch);
   }
 }
 
-export const blueModule = new BlueModule();
+const blueModule = new BlueModule();
