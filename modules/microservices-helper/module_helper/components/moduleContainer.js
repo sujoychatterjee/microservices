@@ -10,7 +10,7 @@ export function moduleContainer(ContainerComponent, { type, title } ) {
             dispatch({
                 type: 'add_tab',
                 payload: { viewId: props.viewId, title, name: type },
-            }, 'outer');
+            }, 'core');
         }
     }
 }

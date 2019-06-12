@@ -32,7 +32,7 @@ export class DispatchHandler {
     dispatch(action, to = 'self') {
         if (to === 'self') {
             this.inbound$.next(action);
-        } else if (to === 'outer'){
+        } else if (to === 'core'){
             this.outbound$.next(action);
         } else {
             this.outbound$.next({

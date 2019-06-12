@@ -32,7 +32,7 @@ class CustomDispatchHandler {
                 params: params,
                 details,
             },
-        }, 'outer');
+        }, 'core');
     }
 }
 
