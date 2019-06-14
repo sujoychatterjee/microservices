@@ -7,7 +7,7 @@ export let dispatch;
 export let executeModuleFunctionality;
 export let getContent;
 
-function getContentManagerService(injectedServices, storeDetails) {
+function getContentManagerService(injectedServices, storeDetails, handlerServiceName) {
 
     const { store, epic$, reducerRegistry, combineEpics } = storeDetails;
 
@@ -131,18 +131,17 @@ function getContentManagerService(injectedServices, storeDetails) {
         }
     }
 
-    ContentMananger.$inject = ['customHandler', '$transitions', ...injectedServices];
+    ContentMananger.$inject = [handlerServiceName, '$transitions', ...injectedServices];
 
     return ContentMananger;
 }
 
-export function initializeModules(angularModule, CustomDispatchHandlerService, injectedServices, storeDetails) {
+export function initializeModules(angularModule, handlerServiceName, injectedServices, storeDetails) {
     let  $stateProviderSaved;
     const moduleComponents = getModuleComponents();
     const moduleOptions = getModuleRegisterOptions();
 
-    angularModule.service('contentManager', getContentManagerService(injectedServices, storeDetails));
-    angularModule.service('customHandler', CustomDispatchHandlerService);
+    angularModule.service('contentManager', getContentManagerService(injectedServices, storeDetails, handlerServiceName));
 
     angularModule.config(['$stateProvider', ($stateProvider) => {
         $stateProviderSaved = $stateProvider;

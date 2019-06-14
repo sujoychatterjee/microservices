@@ -29,10 +29,11 @@ app.run([() => {
 }]);
 
 app.component('rootApp', RootApp);
+app.service('customDispatchHandlerService', CustomDispatchHandlerService);
 
 const passedServices = ['experimentalService'];  
 
-initializeModules(app, CustomDispatchHandlerService, passedServices, {
+initializeModules(app, 'customDispatchHandlerService', passedServices, {
     store,
     epic$,
     reducerRegistry,

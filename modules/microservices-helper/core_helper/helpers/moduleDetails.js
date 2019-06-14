@@ -1,20 +1,20 @@
 import { moduleOptions } from '../../module_helper/helpers/registerModuleHelper';
 import { getParams } from '../utils/paramsUtil';
 import { react2angular } from "react2angular";
-import { getReactWrapper } from "./reactWrapperHelper";
+import { getFrameWrapper } from "./frameWrapperHelper";
 
 export function getModuleComponents() {
     return moduleOptions.map((options) => {
         return {
             name: options.componentName,
-            value: react2angular(getReactWrapper(options.component), [...Object.keys(getParams(options.params)), 'htmlLink']),
+            value: react2angular(getFrameWrapper(options.component), [...Object.keys(getParams(options.params)), 'htmlLink']),
         }
     });
 }
 
 export function getModuleRegisterOptions() {
     return moduleOptions.map((options) => {
-        const { params: passedParams, customDispatchHandlers } = options;
+        const { params: passedParams } = options;
         const params = getParams(passedParams);
         return {
             ...options,
