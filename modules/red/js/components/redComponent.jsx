@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { getModuleContainer } from 'microservices-helper/module_helper';
 import { dispatch } from '../redModule';
 
