@@ -1,0 +1,18 @@
+#red-content {
+    background: #ff4444;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#red-content h3 {
+    margin: 0;
+    padding: 10px;
+}
+
+.open-green-tab {
+    margin-top: 20px;
+    padding: 10px;
+}

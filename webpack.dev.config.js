@@ -73,6 +73,11 @@ module.exports = {
                 }
             }]
     },
+    resolveLoader: {
+        alias: {
+          text: 'text-loader',
+        },
+      },
     devtool: 'inline-source-map',
     output: {
         filename: '[name].[hash].bundle.js',

@@ -12,9 +12,14 @@ body {
     background: #69b4f1;
     height: 100%;
     width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#blue-content > div {
+    margin-top: 10px;
 }
 
 #blue-content h3 {
-    margin: 0;
-    padding: 10px;
+    display: inline;
 }

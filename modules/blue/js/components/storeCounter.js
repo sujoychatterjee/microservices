@@ -4,10 +4,11 @@ import { connect } from '../store/store';
 class StoreCounterComponent extends React.Component {
     render() {
         return <>
-        <h3>Store Count: {this.props.count}</h3> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button>
-        <h3>Blue Internal Count: {this.props.blue.count}</h3>  
-        <button onClick={this.props.incrementOwn}>+</button> <button onClick={this.props.decrementOwn}>-</button>
-        <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
+        <div><h3>Store Count: {this.props.count}</h3> <button onClick={this.props.increment}>+</button> <button onClick={this.props.decrement}>-</button></div>
+        <div><h3>Blue Internal Count: {this.props.blue.count}</h3>
+            <button onClick={this.props.incrementOwn}>+</button> <button onClick={this.props.decrementOwn}>-</button>
+            <button onClick={this.props.delayedIncrement}>Delayed +</button> <button onClick={this.props.delayedDecrement}>Delayed -</button>
+        </div>
         </>;
     }
 }

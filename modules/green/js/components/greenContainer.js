@@ -1,9 +1,11 @@
 import React from 'react';
-import { AngularBootstrapper } from './angularBootstrapper';
+import { getAngularBootstrapperComponent } from 'microservices-helper/module_helper';
+import * as angular from 'angular';
 import '../modules/greenModule';
 import styles from '../../css/greenStyles.css';
 import { moduleContainer } from 'microservices-helper/module_helper';
-import { dispatch } from '../store/store';
+
+const AngularBootstrapper = getAngularBootstrapperComponent(React, angular);
 
 class GreenContainerDefinition extends React.Component {
     render() {
