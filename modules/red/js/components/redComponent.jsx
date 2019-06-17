@@ -1,10 +1,13 @@
 import React from 'react';
-import { moduleContainer } from 'microservices-helper/module_helper';
+import { Provider } from 'react-redux';
+import { getModuleContainer } from 'microservices-helper/module_helper';
 import { dispatch } from '../redModule';
+
+const ModuleContainer = getModuleContainer(React);
 
 const redBackboneView = require('../backboneViews/redView');
 
-class RedComponentDefinition extends React.Component {
+export class RedComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,7 +16,9 @@ class RedComponentDefinition extends React.Component {
 
 
     render() {
-        return <div id="backbone-container" ref={this.redBackboneElementRef}></div>;
+        return <ModuleContainer viewId={this.props.viewId} store={this.props.store} type='red' title='Red Tab'>
+            <div id="backbone-container" ref={this.redBackboneElementRef}></div>;
+        </ModuleContainer>;
     }
 
     componentDidMount() {
@@ -25,5 +30,3 @@ class RedComponentDefinition extends React.Component {
         });
     }
 }
-
-export const RedComponent = moduleContainer(RedComponentDefinition, { type: 'red', title: 'Red Tab' });

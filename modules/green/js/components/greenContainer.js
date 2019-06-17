@@ -1,23 +1,23 @@
 import React from 'react';
-import { getAngularBootstrapperComponent } from 'microservices-helper/module_helper';
+import { getAngularBootstrapperComponent, getModuleContainer } from 'microservices-helper/module_helper';
 import * as angular from 'angular';
 import '../modules/greenModule';
 import styles from '../../css/greenStyles.css';
-import { moduleContainer } from 'microservices-helper/module_helper';
 
+const ModuleContainer = getModuleContainer(React);
 const AngularBootstrapper = getAngularBootstrapperComponent(React, angular);
 
-class GreenContainerDefinition extends React.Component {
+export class GreenContainer extends React.Component {
     render() {
         const { viewId, services } = this.props;
         const bindings = {
             viewId,
             services,
         };
-        return <div id="green-content">
+        return  <ModuleContainer viewId={this.props.viewId} store={this.props.store} type='green' title='Green tab'>
+            <div id="green-content">
                 <AngularBootstrapper moduleName='greenModule' componentName='greenComponent' bindings={bindings}/>
-            </div>;
+            </div>
+        </ModuleContainer>;
     }
 }
-
-export const GreenContainer = moduleContainer(GreenContainerDefinition, {type: 'green', title: 'Green tab'});

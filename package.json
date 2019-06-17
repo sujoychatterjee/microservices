@@ -23,15 +23,10 @@
     "blue": "1.0.0",
     "green": "1.0.0",
     "microservices-helper": "1.0.0",
-    "mini-css-extract-plugin": "^0.7.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
     "red": "1.0.0",
     "redux": "^4.0.1",
     "redux-observable": "^1.1.0",
     "redux-thunk": "^2.3.0",
-    "rxjs": "6.3.3",
     "yellow": "1.0.0"
   },
   "devDependencies": {
@@ -42,6 +37,7 @@
     "css-loader": "^2.1.1",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.7.0",
     "style-loader": "^0.23.1",
     "text-loader": "^0.0.1",
     "webpack": "^4.31.0",

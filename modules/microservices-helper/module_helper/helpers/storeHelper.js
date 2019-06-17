@@ -9,5 +9,5 @@ export const setStore = (stateStore) => {
     store$ = new BehaviorSubject(store.getState());
     store.subscribe(() => store$.next(store.getState()));
 
-    connectSetStore(stateStore);
+    // connectSetStore(stateStore);
 }

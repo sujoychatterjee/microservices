@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "microservices-helper": "1.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rxjs": "^6.5.2"
   },
   "author": "",

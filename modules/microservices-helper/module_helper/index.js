@@ -1,5 +1,4 @@
-export { moduleContainer } from './components/moduleContainer';
-export { connect } from './helpers/connectWrapper';
+export { getModuleContainer } from './components/moduleContainer';
 export { store, store$ } from './helpers/storeHelper';
 export { registerModule } from './helpers/registerModuleHelper';
 export { getAngularBootstrapperComponent } from './components/angularBootstrapper';

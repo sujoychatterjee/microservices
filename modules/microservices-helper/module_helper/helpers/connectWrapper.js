@@ -18,14 +18,7 @@ class ConnectWrapperProvider {
             const ConnectedComponent = reduxConnect(...config)(wrappedComponent);
             return class WrappedComponent extends React.Component {
                 render() {
-                    if (this.context.store) {
-                        return <ConnectedComponent {...this.props} />;
-                    }
-                    return (
-                        <Provider store={stateStore}>
-                            <ConnectedComponent {...this.props} />
-                        </Provider>
-                    );
+                    return <ConnectedComponent {...this.props} />;
                 }
             }
         }

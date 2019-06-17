@@ -19,4 +19,4 @@ export function setDispatch(dispatchFn) {
     dispatch = dispatchFn;
 }
 
-export { connect, store, store$ } from 'microservices-helper/module_helper';
+export { store, store$ } from 'microservices-helper/module_helper';

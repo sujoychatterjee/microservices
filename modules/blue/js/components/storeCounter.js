@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from '../store/store';
+import { connect } from 'react-redux';
 
 class StoreCounterComponent extends React.Component {
     render() {

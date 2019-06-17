@@ -1,10 +1,12 @@
-import { moduleContainer } from "microservices-helper/module_helper";
+import { getModuleContainer } from "microservices-helper/module_helper";
 import React from 'react';
 
-class YellowContainerDefinition extends React.Component {
+const ModuleContainer = getModuleContainer(React);
+
+export class YellowContainer extends React.Component {
     render() {
-        return <div id="yellow-content"><h3>This is Yellow content</h3></div>;
+        return <ModuleContainer viewId={this.props.viewId} store={this.props.store} type='yellow' title='Yellow tab'>
+            <div id="yellow-content"><h3>This is Yellow content</h3></div>
+        </ModuleContainer>;
     }
 }
-
-export const YellowContainer = moduleContainer(YellowContainerDefinition, { type: 'yellow', title: 'Yellow tab'});
