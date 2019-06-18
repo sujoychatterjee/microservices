@@ -29,6 +29,13 @@ export function getModuleRegisterOptions() {
     });
 }
 
+export function getAngularModulesOptions() {
+    return moduleOptions.reduce((angularModules, options) => {
+        const { angularModule } = options;
+        return angularModule ? [...angularModules, angularModule] : angularModules;
+    }, []);
+}
+
 function getController(params, name) {
     class ModuleAngularController {
 

@@ -16,6 +16,7 @@ import 'blue';
 import 'red';
 import 'green';
 import 'yellow';
+import 'purple';
 // -----------------------
 
 const app = angular.module('app', ['ui.router', 'app.basic']);

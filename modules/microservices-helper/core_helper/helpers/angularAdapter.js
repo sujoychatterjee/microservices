@@ -1,6 +1,6 @@
-import { Subject } from 'rxjs';
+import * as angular from 'angular';
 
-import { getModuleComponents, getModuleRegisterOptions } from './moduleDetails';
+import { getModuleComponents, getModuleRegisterOptions, getAngularModulesOptions } from './moduleDetails';
 import { DispatchHandler } from './dispatchHandler';
 
 export let dispatch;
@@ -84,7 +84,7 @@ function getContentManagerService(injectedServices, storeDetails, handlerService
                 let newTrans = true;
                 const services = injectedServices.reduce((servicesObj, serviceName, index) => ({...servicesObj, [serviceName]: this.injectedServices[index]}), {});
                 if (params.store === null) {
-                    params = { ...params, store, services };
+                    params = { ...params, store, services, angular };
                     newTrans = trans.router.stateService.target(trans.to(), params);
                 }
                 return newTrans;
@@ -140,6 +140,7 @@ export function initializeModules(angularModule, handlerServiceName, injectedSer
     let  $stateProviderSaved;
     const moduleComponents = getModuleComponents();
     const moduleOptions = getModuleRegisterOptions();
+    const angularModulesOptions = getAngularModulesOptions();
 
     angularModule.service('contentManager', getContentManagerService(injectedServices, storeDetails, handlerServiceName));
 
@@ -155,7 +156,15 @@ export function initializeModules(angularModule, handlerServiceName, injectedSer
         });
     }]);
 
-    moduleComponents.forEach((component) => {
-        angularModule.component(component.name, component.value);
+    registerComponents(angularModule, moduleComponents);
+
+    angularModulesOptions.forEach(({ components }) => {
+        registerComponents(angularModule, components);
+    });
+}
+
+function registerComponents(module, components) {
+    components.forEach((component) => {
+        module.component(component.name, component.value);
     });
 }

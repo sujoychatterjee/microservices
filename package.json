@@ -23,6 +23,7 @@
     "blue": "1.0.0",
     "green": "1.0.0",
     "microservices-helper": "1.0.0",
+    "purple": "1.0.0",
     "red": "1.0.0",
     "redux": "^4.0.1",
     "redux-observable": "^1.1.0",
