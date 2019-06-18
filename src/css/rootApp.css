@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-#root {
+#angular-bootstrap-element {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -26,6 +26,7 @@ body {
     padding: 5px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 #app-content-container {

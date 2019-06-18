@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
-const modules = ['green', 'blue', 'red', 'yellow'];
+const modules = ['green', 'yellow'];
 
 const modulesPluginConfig = modules.map((moduleName) => new HtmlWebpackPlugin({
     filename: `${moduleName}.html`, //relative to root of the application

@@ -1,5 +1,6 @@
-import { store$, dispatch } from '../store/store';
+import { store$ } from 'microservices-helper/module_helper';
 import { pluck } from 'rxjs/operators';
+import { dispatch } from '../yellowModule';
 
 class StoreCounterController {
     constructor($scope, experimentalService) {
@@ -23,16 +24,11 @@ class StoreCounterController {
     }
 }
 
-StoreCounterController.$inject = ['$scope', 'experimentalService'];
+StoreCounterController.$inject = ['$scope'];
 
 export const storeCounter = {
     controller: StoreCounterController,
-    bindings: {
-        experimentalService: '=',
-    },
 
     template: `<h3 style="display:inline;margin-right:10px">Store Count: {{$ctrl.storeCount}}</h3><span></span>
-    <button ng-click="$ctrl.increment()">+</button><button ng-click="$ctrl.decrement()">-</button>
-    <h3>Experimental service id: {{$ctrl.experimentalServiceOwn.value}}</h3>
-    <h3>Passed Experimental service id: {{$ctrl.experimentalService.value}}</h3>`,
+    <button ng-click="$ctrl.increment()">+</button><button ng-click="$ctrl.decrement()">-</button>`,
 }

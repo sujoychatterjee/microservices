@@ -4,7 +4,7 @@ class GreenComponentController {
 
 export const greenComponent = {
     template: `<div>
-        <h2>[Angular] This is Green content (ID: {{$ctrl.viewId}}) </h2>
+        <h3>[Angular, in iframe, has its own angular bootstrap]<h3> <h2>This is Green content (ID: {{$ctrl.viewId}}) </h2>
         <store-counter experimental-service="$ctrl.services.experimentalService" ></store-counter>
         <blue-operations><blue-operations/>
     </div>`,

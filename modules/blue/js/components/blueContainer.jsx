@@ -11,7 +11,7 @@ export class BlueContainer extends React.Component {
     render() {
         return <ModuleContainer viewId={this.props.viewId} store={this.props.store} type="blue" title="Blue tab" >
             <div id="blue-content">
-                <h2>[React] This is Blue content (ID: {this.props.viewId})</h2>
+                <h3>[React, not in iframe, no angular bootstrap] </h3><h2>This is Blue content (ID: {this.props.viewId})</h2>
                 <BlueInnerContainer/>
                 <StoreCounter/>
             </div>

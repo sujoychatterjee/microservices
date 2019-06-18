@@ -13,8 +13,8 @@ import { initializeModules } from 'microservices-helper/core_helper';
 
 // -----------------------
 import 'blue';
-import 'green';
 import 'red';
+import 'green';
 import 'yellow';
 // -----------------------
 

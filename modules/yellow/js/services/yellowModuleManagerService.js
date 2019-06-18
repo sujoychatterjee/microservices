@@ -16,6 +16,7 @@ export class YellowModuleHelper {
             hint: 'Yellow',
             color: 'yellow',
             customDispatchHandlers: customHandlers,
+            frameIsolation: true,
         }
     }
 }

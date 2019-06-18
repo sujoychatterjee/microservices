@@ -5,9 +5,13 @@ import { getFrameWrapper } from "./frameWrapperHelper";
 
 export function getModuleComponents() {
     return moduleOptions.map((options) => {
+        const shouldAddFrame = options.frameIsolation;
+        const reactComponent = shouldAddFrame ? getFrameWrapper(options.component) : options.component;
+        const requestedProps = Object.keys(getParams(options.params));
+        const props = shouldAddFrame ? [...requestedProps, 'htmlLink'] : requestedProps;
         return {
             name: options.componentName,
-            value: react2angular(getFrameWrapper(options.component), [...Object.keys(getParams(options.params)), 'htmlLink']),
+            value: react2angular(reactComponent, props),
         }
     });
 }

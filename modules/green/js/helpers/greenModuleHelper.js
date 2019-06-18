@@ -14,6 +14,7 @@ class GreenModuleHelper {
             store,
             epics,
             customDispatchHandlers: customHandlers,
+            frameIsolation: true,
         }
     }
 }
