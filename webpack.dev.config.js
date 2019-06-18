@@ -3,29 +3,29 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
-const modules = ['green', 'yellow'];
+const iframedModules = ['green', 'yellow'];
 
-const modulesPluginConfig = modules.map((moduleName) => new HtmlWebpackPlugin({
+const iframedModulesPluginConfig = iframedModules.map((moduleName) => new HtmlWebpackPlugin({
     filename: `${moduleName}.html`, //relative to root of the application
     chunks: [moduleName],
     excludeAssets: [/.*\.js$/]
 }));
 
-const moduleEntries = modules.reduce((entries, moduleName) => ({...entries, [moduleName]: `./modules/${moduleName}`}), {})
+const iframedModuleEntries = iframedModules.reduce((entries, moduleName) => ({...entries, [moduleName]: `./modules/${moduleName}`}), {})
 
-const modulePaths = modules.map((moduleName) => path.resolve(__dirname, `modules/${moduleName}`));
+const iframedModulePaths = iframedModules.map((moduleName) => path.resolve(__dirname, `modules/${moduleName}`));
 
 module.exports = {
     mode: 'development',
     entry: {
         main: './src/app.js',
-        ...moduleEntries,
+        ...iframedModuleEntries,
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
     plugins: [
-        ...modulesPluginConfig,
+        ...iframedModulesPluginConfig,
         new HtmlWebpackPlugin({
             template: 'main-app.html',
             filename: 'index.html', //relative to root of the application
@@ -42,7 +42,7 @@ module.exports = {
         rules: [
             {
               test: /\.css$/,
-              include: modulePaths,
+              include: iframedModulePaths,
               exclude: path.resolve(__dirname, "src/css"),
               use: [
                   {
@@ -56,7 +56,7 @@ module.exports = {
             },
             {
                 test: /\.css/,
-                exclude: modulePaths,
+                exclude: iframedModulePaths,
                 use: [
                     {loader: "style-loader"},
                     {loader: "css-loader"},
