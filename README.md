@@ -4,5 +4,5 @@
 
 #### Prerequisites: Node 8 or higher, yarn
 
-#### Run `yarn dev` to start.
+#### Run `yarn dev` to start. Open http://localhost:9000/
 
