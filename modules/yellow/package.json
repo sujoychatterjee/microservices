@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "angular": "1.5.11",
+    "angular": "1.7.9",
     "microservices-helper": "1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
