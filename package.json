@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.22",
-    "angular": "1.5.11",
+    "angular": "1.7.9",
     "blue": "1.0.0",
     "green": "1.0.0",
     "microservices-helper": "1.0.0",
